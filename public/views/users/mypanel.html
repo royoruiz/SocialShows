@@ -1,0 +1,22 @@
+ <div class="row-fluid">
+    <div class="span2">
+    <!--Sidebar content-->
+
+    </div>
+    <div class="span10">
+    <!--Body content-->
+    	<section data-ng-controller="UserPublicController">
+		Hi, {{global.user.name}}
+		<br><br>
+
+        <div class="check-element animate-show" ng-hide="islink()">
+		  Connect with your twitter account <a href="/connect/twitter">here</a>
+        </div>
+
+        <div class="check-element animate-show" ng-show="islink()">
+          Nothing to do, for now.
+        </div>        
+
+        </section>
+	</div>
+</div>

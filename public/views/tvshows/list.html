@@ -1,0 +1,42 @@
+<section data-ng-controller="TvShowsController" data-ng-init="fetchresult()">
+<div class="row-fluid">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th ng-repeat="header in headers">
+        <sortby onsort="onSort" sortdir="filterCriteria.sortDir" sortedby="filterCriteria.sortedBy" sortvalue="{{header.value}}">{{ header.title }}</sortby>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td></td>
+    <td><input on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.name" id="txt_name" type="text" style="width:320px;"/></td>
+    <td><input on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.network" type="text" ng-show="4<=filterCriteria.name.length"/><input on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.network" type="text" disabled ng-hide="4<=filterCriteria.name.length"/></td>
+    <td></td>
+    <td></td>
+
+  </tr>
+
+  <tr ng-repeat="tvshow in tvshows">
+    <td>{{$index=$index+1}}</td>
+    <td><a href="#!/tvshows/{{tvshow._id}}">{{tvshow.name}}</a></td>
+    <td>{{tvshow.network.text | date:'medium'}}</td>
+    <td>{{tvshow.users.count() | date:'medium'}}</td>
+    <td>
+      <form class="form-horizontal" data-ng-submit="update(tvshow)" ng-hide="isFollowing(tvshow)"><button type="submit" class="btn">+ Follow</button></form>
+      <form class="form-horizontal" data-ng-submit="remove(tvshow)" ng-show="isFollowing(tvshow)"><button type="submit" class="btn">Unfollow</button></form>
+      <form class="form-horizontal" data-ng-submit="watchAll(tvshow,social)" ng-hide="isWatchAll(tvshow,social)"><button type="submit" class="btn">Check All</button></form>
+      <form class="form-horizontal" data-ng-submit="unwatchAll(tvshow,social)" ng-show="isWatchAll(tvshow,social)"><button type="submit" class="btn">Uncheck All</button></form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div ng-show="customersCount == 0">
+  <h3>Search your show</h3>
+</div>
+<div ng-show="totalPages > 1" class="align-center">
+  <pagination total-items="customersCount" page="filterCriteria.pageNumber" max-size="5" class="pagination-sm" boundary-links="true" rotate="false" num-pages="totalPages" items-per-page="maxsize" on-select-page="selectPage(page)"></pagination>
+</div>
+</div>
+</section>

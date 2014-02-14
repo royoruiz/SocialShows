@@ -1,0 +1,26 @@
+ <div class="row-fluid">
+    <div class="span2">
+    <!--Sidebar content-->
+
+    </div>
+    <div class="span10">
+    <!--Body content-->
+	<section data-ng-controller="TvShowsController" data-ng-init="findOne()">
+		<span>Seasons {{tvshow.totalseasons}} {{tvshow.started | date:'medium'}} and {{tvshow.ended | date:'medium'}} {{tvshow.network.country}} {{tvshow.network.text}}
+		</span> <br>
+		<span><img src={{tvshow.image}}></span>
+		<h2>{{tvshow.name}}</h2>
+		<div>{{tvshow.content}}</div>
+
+		<tabset>
+			<tab ng-repeat="season in tvshow.Episodelist" heading="S{{season.no}}" active="season.active">
+      			<ul class="unstyled">
+					<li data-ng-repeat="episodes in season.episode">
+						<span>{{season.no}}x{{episodes.seasonnum}} <a data-ng-href="#!/tvshows/{{tvshow._id}}/{{season.no}}/{{episodes.title}}">{{episodes.title}}</a></span>
+					</li>
+				</ul>
+    		</tab>
+		</tabset>	
+	</section>
+</div>
+</div>

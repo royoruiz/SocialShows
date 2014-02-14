@@ -1,0 +1,31 @@
+{
+    "db": "mongodb://localhost/socialshows",
+    "app": {
+        "name": "Social Shows - Watch TV and Be Social"
+    },
+    "facebook": {
+        "clientID": "APP_ID",
+        "clientSecret": "APP_SECRET",
+        "callbackURL": "http://localhost:3000/auth/facebook/callback"
+    },
+    "twitter": {
+        "clientID": "APP_ID",
+        "clientSecret": "APP_SECRET",
+        "callbackURL": "http://www.xxx.com/auth/twitter/callback"
+    },
+    "twitter_connect": {
+        "clientID": "APP_ID",
+        "clientSecret": "APP_SECRET",
+        "callbackURL": "http://www.xxx.com/connect/twitter/callback"
+    },
+    "github": {
+        "clientID": "APP_ID",
+        "clientSecret": "APP_SECRET",
+        "callbackURL": "http://localhost:3000/auth/github/callback"
+    },
+    "google": {
+        "clientID": "APP_ID",
+        "clientSecret": "APP_SECRET",
+        "callbackURL": "http://localhost:3000/auth/google/callback"
+    }
+}
