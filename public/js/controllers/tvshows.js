@@ -228,7 +228,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
                         });
                         */
                         if (Global.user.twitter && $scope.a_twitter){
-                            var tweet = new Twitter({opinion: tit + ' ' + opinion + ' http://www.mytvshows.com/#!articles/' + article._id});
+                            var tweet = new Twitter({opinion: tit + ' ' + opinion + ' http://app.forillodelroyo.net/#!articles/' + article._id});
                             tweet.$get();
                         } else {
                             console.log("We don't send a tweet because you don't want, remeber that...");
@@ -248,6 +248,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
         var temp = [];
         var z=0;
         var ind = 0;
+        console.log(show);
         for (var j = show.Episodelist.length - 1; j >= 0; j--) {
             for (var k = show.Episodelist[j].episode.length - 1; k >= 0; k--) {
                 temp[z] = show.Episodelist[j].episode[k].epnum;
