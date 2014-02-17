@@ -66,7 +66,7 @@ exports.findByAirdate = function(req, res) {
         TvShows.aggregate(
         {$match: { 'Episodelist.episode': { '$exists': true } }},  
         {$unwind: '$Episodelist'}, 
-        {$project: {_id: 0, airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users'}}, 
+        {$project: {_id: 0, show_id: '$_id', airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}}, 
         {$unwind: '$episode'}, 
         {$match: {'episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}},
         {$unwind: '$users'},
@@ -83,7 +83,10 @@ exports.findByAirdate = function(req, res) {
             var date_start_aux = new Date();
             var date_end_aux = new Date();
             for (var i = result.length - 1; i >= 0; i--) {
-                aux = result[i].season + 'x' + result[i].episode.seasonnum + ' - ' + result[i].episode.title;
+                //console.log(result[i]);
+                aux = result[i].name + ' - ' + result[i].season + 'x' + result[i].episode.seasonnum;
+                //aux_lnk = "<a data-ng-href=\"#!/tvshows/" + result[i].show_id + "/" + result[i].season + "/"+ result[i].episode.title +"\">" + aux + "</a>";
+                aux_lnk = "#!/tvshows/" + result[i].show_id + "/" + result[i].season + "/"+ result[i].episode.title;
                 y = result[i].episode.airdate.substring(0,4);
                 m = parseInt(result[i].episode.airdate.substring(5,7)) - 1;
                 d = result[i].episode.airdate.substring(8,10);
@@ -105,7 +108,7 @@ exports.findByAirdate = function(req, res) {
                 if (result[i].elapsed == 120) {dif = 2; dif_min = 0;}
                 date_end_aux = new Date(y,m,d,h + dif,min + dif_min);
                 //console.log(date_end_aux);
-                doc = {'title': aux, 'start': new Date(date_start_aux.valueOf() - date_start_aux.getTimezoneOffset() * (30000+30000)), 'end': new Date(date_end_aux.valueOf() - date_end_aux.getTimezoneOffset() * (30000+30000)), 'allDay': false};
+                doc = {'title': aux, 'start': new Date(date_start_aux.valueOf() - date_start_aux.getTimezoneOffset() * (30000+30000)), 'end': new Date(date_end_aux.valueOf() - date_end_aux.getTimezoneOffset() * (30000+30000)), 'allDay': false, 'url': aux_lnk};
                 //console.log(doc);
                 devolver[j] = doc;
                 //console.log('hola 8');
