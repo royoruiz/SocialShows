@@ -1,11 +1,13 @@
- <div class="row-fluid">
+<section data-ng-controller="TvShowsController" data-ng-init="findOne()">
+<div class="row-fluid">
+
     <div class="span2">
     <!--Sidebar content-->
 
     </div>
-    <div class="span10">
+    <div class="span6">
     <!--Body content-->
-	<section data-ng-controller="TvShowsController" data-ng-init="findOne()">
+	
 		<span>Seasons {{tvshow.totalseasons}} {{tvshow.started | date:'medium'}} and {{tvshow.ended | date:'medium'}} {{tvshow.network.country}} {{tvshow.network.text}}
 		</span> <br>
 		<span><img src={{tvshow.image}}></span>
@@ -21,6 +23,23 @@
 				</ul>
     		</tab>
 		</tabset>	
-	</section>
+	
+	</div>
+    <div class="span2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title"><a data-ng-href="#!/tvshows/{{idshow}}">{{tvshow.name}}</a></h4>
+        </div>
+        <div class="panel-body">
+          Status <b>{{tvshow.status}}</b></br>
+          Total Seasons <b>{{tvshow.totalseasons}}</b></b></br>
+          Started <b>{{tvshow.started}}</b></br>
+          Ended <b>{{tvshow.ended}}</b></br>
+          Network <b>{{tvshow.network.text}}</b></br>
+          Runtime <b>{{tvshow.runtime}}</b></br>
+          Airtime <b>On {{tvshow.airday}}, at {{tvshow.airtime}}</b>
+        </div>
+      </div>
+    </div>
 </div>
-</div>
+</section>
