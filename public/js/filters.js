@@ -22,3 +22,26 @@ angular.module('mean.tvshows').filter('getByTitle', function() {
   };
 });
 
+angular.module('mean.tvshows').filter('getByTitlePrev', function() {
+  return function(input, title) {
+    var i=0, len=input.length;
+    for (; i<len; i++) {
+      if (input[i].title == title) {
+        return input[i-1];
+      }
+    }
+    return null;
+  };
+});
+
+angular.module('mean.tvshows').filter('getByTitleNext', function() {
+  return function(input, title) {
+    var i=0, len=input.length;
+    for (; i<len; i++) {
+      if (input[i].title == title) {
+        return input[i+1];
+      }
+    }
+    return null;
+  };
+});

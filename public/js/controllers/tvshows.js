@@ -170,7 +170,17 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
             $scope.showid = tvshow.showid;
             $scope.name = tvshow.name;
             $scope.idshow = tvshow._id;
+            $scope.status = tvshow.status;
+            $scope.runtime = tvshow.runtime;
+            $scope.total = tvshow.totalseasons;
+            $scope.started = tvshow.started;
+            $scope.ended = tvshow.ended;
+            $scope.airtime = tvshow.airtime;
+            $scope.airday = tvshow.airday;
+            $scope.network = tvshow.network.text;
             $scope.episode = $filter('getByTitle')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title);
+            $scope.episodeprev = $filter('getByTitlePrev')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title);
+            $scope.episodenext = $filter('getByTitleNext')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title);
             $scope.season = $routeParams.season;
 
 
