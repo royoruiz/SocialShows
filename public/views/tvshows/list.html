@@ -21,13 +21,31 @@
   <tr ng-repeat="tvshow in tvshows">
     <td>{{$index=$index+1}}</td>
     <td><a href="#!/tvshows/{{tvshow._id}}">{{tvshow.name}}</a></td>
-    <td>{{tvshow.network.text | date:'medium'}}</td>
-    <td>{{tvshow.users.count() | date:'medium'}}</td>
+    <td>{{tvshow.network.text}}</td>
+    <td>{{tvshow.users.length}}</td>
     <td>
-      <form class="form-horizontal" data-ng-submit="update(tvshow)" ng-hide="isFollowing(tvshow)"><button type="submit" class="btn">+ Follow</button></form>
+      <!--<form class="form-horizontal" data-ng-submit="update(tvshow)" ng-hide="isFollowing(tvshow)"><button type="submit" class="btn">+ Follow</button></form>
+      <form class="form-horizontal" data-ng-submit="watchAll(tvshow,social)" ng-hide="isWatchAll(tvshow,social)"><button type="submit" class="btn">Check All</button></form>-->
       <form class="form-horizontal" data-ng-submit="remove(tvshow)" ng-show="isFollowing(tvshow)"><button type="submit" class="btn">Unfollow</button></form>
-      <form class="form-horizontal" data-ng-submit="watchAll(tvshow,social)" ng-hide="isWatchAll(tvshow,social)"><button type="submit" class="btn">Check All</button></form>
       <form class="form-horizontal" data-ng-submit="unwatchAll(tvshow,social)" ng-show="isWatchAll(tvshow,social)"><button type="submit" class="btn">Uncheck All</button></form>
+      <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3>Follow and check until you are watched</h3>
+        </div>
+        <div class="modal-body">
+            I have watched until
+            <select ng-model="episode" ng-options="e.title for e in tvshow.aux"></select>
+            or leave in blank if you just discovered the show
+            <br> Sir, I have watched this show completely <input type="checkbox" ng-model="indcomp">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok(episode.key, indcomp)">Follow and check</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+      </script>
+      <form class="form-horizontal" ng-hide="isFollowing(tvshow)">
+        <button class="btn btn-default" ng-click="open(tvshow)">+ Follow</button>
+      </form>
     </td>
   </tr>
   </tbody>

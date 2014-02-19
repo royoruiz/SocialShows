@@ -1,4 +1,4 @@
-angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$routeParams', '$location', 'Global', 'TvShows', '$filter', 'Socials', 'Articles', 'Twitter','TvShowsByName',  function ($scope, $routeParams, $location, Global, TvShows, $filter, Socials, Articles, Twitter, TvShowsByName) {
+angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$routeParams', '$location', 'Global', 'TvShows', '$filter', 'Socials', 'Articles', 'Twitter','TvShowsByName', '$modal',  function ($scope, $routeParams, $location, Global, TvShows, $filter, Socials, Articles, Twitter, TvShowsByName, $modal) {
     $scope.global = Global;
 
     Socials.get({userId: Global.user._id},function(social) {
@@ -59,17 +59,30 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
             $scope.customersCount = data.length;
 
             //console.log(data);
-            console.log($scope.filterCriteria.pageNumber);
-            console.log(x);
-            console.log(data.length);
+            //console.log($scope.filterCriteria.pageNumber);
+            //console.log(x);
+            //console.log(data.length);
             var j=0;
             var k=0;
             if ($scope.filterCriteria.pageNumber > 1){k=$scope.maxsize*$scope.filterCriteria.pageNumber - $scope.maxsize;}
-            console.log(k);
+            //console.log(k);
             var term=0;
             if (data.length - k > 50){ term = 50;} else {term=data.length - k;}
 
-            $scope.tvshows = data.splice(k,term);  
+            $scope.tvshows = data.splice(k,term);
+            var data_new={};
+            for (var i = 0; i < $scope.tvshows.length; i++) {
+                $scope.tvshows[i].aux=[];
+                for (var j1 = 0; j1 < $scope.tvshows[i].Episodelist.length; j1++) {
+                    for (var k1 = 0; k1 < $scope.tvshows[i].Episodelist[j1].episode.length; k1++) {
+                        data_new={'title': $scope.tvshows[i].Episodelist[j1].no + 'x' + $scope.tvshows[i].Episodelist[j1].episode[k1].seasonnum + ' - ' + $scope.tvshows[i].Episodelist[j1].episode[k1].title, 'key': $scope.tvshows[i].Episodelist[j1].episode[k1].epnum};
+                        $scope.tvshows[i].aux.push(data_new);
+                        //console.log($scope.tvshows[i].Episodelist[j].no + $scope.tvshows[i].Episodelist[j].episode[k].title);
+                    }
+                }
+                //console.log($scope.tvshows[i].aux);    
+            }
+
 
         }, function () {
             //console.log('2');
@@ -118,17 +131,17 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
 
     $scope.update = function(tvshow) {
         //var tvshows = tvshow;
-        console.log("1");
+        //console.log("1");
         if (!tvshow.updated) {
-            console.log("2");
+            //console.log("2");
             tvshow.updated = [];
         }
 
         //tvshow.updated.push(new Date().getTime());
-        console.log(tvshow);
+        //console.log(tvshow);
 
         tvshow.$update(function() {
-            console.log("3");
+            //console.log("3");
             $location.path('tvshows/');
         });
     };
@@ -252,19 +265,40 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
 
     };
 
-    $scope.watchAll = function(show, social) {
+    $scope.watchAll = function(show, social, clave, comp) {
 
         var crtl = false;
         var temp = [];
         var z=0;
         var ind = 0;
-        console.log(show);
-        for (var j = show.Episodelist.length - 1; j >= 0; j--) {
-            for (var k = show.Episodelist[j].episode.length - 1; k >= 0; k--) {
-                temp[z] = show.Episodelist[j].episode[k].epnum;
-                z++;
+        //console.log("hola1");
+        //console.log(comp);
+        if (clave){
+            for (var j2 = show.Episodelist.length - 1; j2 >= 0; j2--) {
+                for (var k2 = show.Episodelist[j2].episode.length - 1; k2 >= 0; k2--) {
+                    //console.log(clave);
+                    //console.log(show.Episodelist[j2].episode[k2].epnum);
+                    if (parseInt(clave)>=parseInt(show.Episodelist[j2].episode[k2].epnum)) {
+                        //console.log("entro!");
+                        temp[z] = show.Episodelist[j2].episode[k2].epnum;
+                        z++;
+                    }    
+                }
+            }  
+            //console.log("in");
+            //console.log(temp);          
+        }else{
+            if (comp){
+                for (var j3 = show.Episodelist.length - 1; j3 >= 0; j3--) {
+                    for (var k3 = show.Episodelist[j3].episode.length - 1; k3 >= 0; k3--) {
+                        temp[z] = show.Episodelist[j3].episode[k3].epnum;
+                        z++;
+                    }
+                }                
             }
+            //console.log("out");
         }
+
         
         for (var i = social.watched.length - 1; i >= 0; i--) {
             if (social.watched[i].showid == show.showid) {
@@ -276,9 +310,19 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
         
         if (crtl){
             social.watched[ind].epnum = temp;
-            social.watched[ind].completed = true;
+            if (comp){
+                social.watched[ind].completed = true;
+            }else{
+                social.watched[ind].completed = false;
+            }
+            
         } else {
-            social.watched.push({showid: show.showid, epnum: temp, completed: true});
+            if (comp){
+                social.watched.push({showid: show.showid, epnum: temp, completed: true});
+            }else{
+                social.watched.push({showid: show.showid, epnum: temp, completed: false});
+            }
+            
         }
         
         social.$update(function(){
@@ -354,6 +398,51 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
         }
         return responsw;       
 
-    };  
+    };
+
+  $scope.open = function (tvshow) {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'myModalContent.html',
+      controller: ModalInstanceCtrl,
+      resolve: {
+        tvshow: function () {
+          return tvshow;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (doc) {
+      $scope.selected = doc.clv;
+      //console.log("Mi carro" + doc.clv);
+      //console.log("Mi carro1" + doc.indicador);
+      //console.log(tvshow.name);
+      //console.log($scope.social.watched);
+      $scope.update(tvshow);
+      $scope.watchAll(tvshow, $scope.social, doc.clv, doc.indicador);
+
+    }, function () {
+        //cuando cancela!!!
+      console.log("selectedItem");
+    });
+  };      
 
 }]);
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.
+
+var ModalInstanceCtrl = function ($scope, $modalInstance, tvshow) {
+
+  $scope.tvshow = tvshow;
+  //console.log(tvshow);
+
+  $scope.ok = function (key, indcomp) {
+    $modalInstance.close({'clv': key, 'indicador': indcomp});
+  };
+
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};
