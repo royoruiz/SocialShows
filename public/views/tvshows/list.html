@@ -30,13 +30,13 @@
       <form class="form-horizontal" data-ng-submit="unwatchAll(tvshow,social)" ng-show="isWatchAll(tvshow,social)"><button type="submit" class="btn">Uncheck All</button></form>
       <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3>Follow and check until you are watched</h3>
+            <h3>Follow and check up to the last episode you watched</h3>
         </div>
         <div class="modal-body">
-            I have watched until
+            - I have watched up to episode
             <select ng-model="episode" ng-options="e.title for e in tvshow.aux"></select>
-            or leave in blank if you just discovered the show
-            <br> Sir, I have watched this show completely <input type="checkbox" ng-model="indcomp">
+            (leave it blank it you have just found out about the show) </br></br>
+            - Yes, sir, I have watched the complete the whole show  <input type="checkbox" ng-model="indcomp">
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="ok(episode.key, indcomp)">Follow and check</button>
