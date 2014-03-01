@@ -236,7 +236,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
                 }
                 //social.watched.push({showid: showid_in, epnum: epnum_in});
                 //var tit = Global.user.username + ' check ' + season + 'x' + episode_in.seasonnum + ' - \"' + episode_in.title + '\" -';
-                var tit = 'I\'ve  watched ' + name + ' - ' + season + 'x' + episode_in.seasonnum + ' - \"' + episode_in.title + '\" -';
+                var tit = 'I\'ve  watched ' + name + ' - ' + season + 'x' + episode_in.seasonnum + ' - \"' + episode_in.title;
                 social.$update(function(){  
                     var article = new Articles({
                         title: tit,
@@ -251,8 +251,12 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
                         });
                         */
                         if (Global.user.twitter && $scope.a_twitter){
-                            if (!opinion){ opinion = "";}
-                            var tweet = new Twitter({opinion: tit + ' ' + opinion + ' http://app.forillodelroyo.net/#!articles/' + article._id});
+                            if (!opinion){ 
+                                opi = "";
+                            }else{
+                                opi = '\" -' + opinion;
+                            }
+                            var tweet = new Twitter({opinion: tit + ' ' + opi + ' http://app.forillodelroyo.net/#!articles/' + article._id});
                             tweet.$get();
                         } else {
                             console.log("We don't send a tweet because you don't want, remeber that...");
