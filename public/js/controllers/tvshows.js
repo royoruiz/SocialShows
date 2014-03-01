@@ -236,7 +236,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
                 }
                 //social.watched.push({showid: showid_in, epnum: epnum_in});
                 //var tit = Global.user.username + ' check ' + season + 'x' + episode_in.seasonnum + ' - \"' + episode_in.title + '\" -';
-                var tit = 'I\'ve  watched ' + name + ' - ' + season + 'x' + episode_in.seasonnum + ' - \"' + episode_in.title '\"';
+                var tit = 'I\'ve  watched ' + name + ' - ' + season + 'x' + episode_in.seasonnum + ' - \"' + episode_in.title + '\"';
                 social.$update(function(){  
                     var article = new Articles({
                         title: tit,
