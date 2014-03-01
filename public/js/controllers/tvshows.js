@@ -251,6 +251,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
                         });
                         */
                         if (Global.user.twitter && $scope.a_twitter){
+                            if (!opinion){ opinion = "";}
                             var tweet = new Twitter({opinion: tit + ' ' + opinion + ' http://app.forillodelroyo.net/#!articles/' + article._id});
                             tweet.$get();
                         } else {
