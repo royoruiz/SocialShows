@@ -136,7 +136,7 @@ for doc in docs:
 	c_show = c_tvshows.find_one({'showid': doc['id']})
 	print "***********************************"
 	#print c_show
-	if 'users' in c_show:
+	if c_show.users and 'users' in c_show:
 		print c_show['users']
 		res['Show']['users'] = c_show['users']
 	else:
@@ -146,6 +146,9 @@ for doc in docs:
 	print c_show['_id']
 	res['Show']['_id'] =  c_show['_id']
 	
-	c_tvshows.save(res['Show'])
+	if c_show.count() == 0:
+		print "No salvo nada " + doc['id']
+	else:
+		c_tvshows.save(res['Show'])
 	#c_tvshows.save(res['Show'])
 
