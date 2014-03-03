@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('IndexController', ['$scope', 'Global','TvShowsByDate', function ($scope, Global, TvShowsByDate) {
+angular.module('mean.system').controller('IndexController', ['$scope', 'Global','TvShowsByDate','Socials', function ($scope, Global, TvShowsByDate, Socials) {
     $scope.global = Global;
 
     $scope.uiConfig = {
@@ -64,7 +64,37 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
           //console.log(list);
           //return list;
           //console.log(list);
-          callback(list);
+          if ($scope.global.user){
+            var social = Socials.get({userId: Global.user._id},function(social) {
+              //console.log("1");
+              //console.log(social.watched);
+              //console.log(list);
+              var list_aux=[];
+              var remove = false;
+              for (var l = list.length - 1; l >= 0; l--) {
+                remove = false;
+                for (var w = social.watched.length - 1; w >= 0; w--) {
+                  if (social.watched[w].showid == list[l].dat1){
+                    for (var e = social.watched[w].epnum.length - 1; e >= 0; e--) {
+                      if (social.watched[w].epnum[e] == list[l].dat2){
+                        remove = true;
+                      }
+                    }
+                  }  
+                }
+                if (!remove){list_aux.push(list[l]);}
+              }
+              //console.log(list_aux);
+              list = [];
+              list = list_aux;
+              callback(list);
+            });
+          }else{
+            console.log("error");
+          }
+          //console.log("aqui");
+          //console.log(list);
+          //callback(list);
         }
       );
       //console.log(events_aux);

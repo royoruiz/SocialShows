@@ -62,11 +62,12 @@ exports.findByAirdate = function(req, res) {
 
     //{title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
     //console.log("entro");
-    if (req.user){
+    if (req.user){        
+
         TvShows.aggregate(
         {$match: { 'Episodelist.episode': { '$exists': true } }},  
         {$unwind: '$Episodelist'}, 
-        {$project: {_id: 0, show_id: '$_id', airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}}, 
+        {$project: {_id: 0, show_id: '$_id', show: '$showid',airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}}, 
         {$unwind: '$episode'}, 
         {$match: {'episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}},
         {$unwind: '$users'},
@@ -84,6 +85,7 @@ exports.findByAirdate = function(req, res) {
             var date_end_aux = new Date();
             for (var i = result.length - 1; i >= 0; i--) {
                 //console.log(result[i]);
+
                 aux = result[i].name + ' - ' + result[i].season + 'x' + result[i].episode.seasonnum;
                 //aux_lnk = "<a data-ng-href=\"#!/tvshows/" + result[i].show_id + "/" + result[i].season + "/"+ result[i].episode.title +"\">" + aux + "</a>";
                 aux_lnk = "#!/tvshows/" + result[i].show_id + "/" + result[i].season + "/"+ result[i].episode.title;
@@ -108,7 +110,7 @@ exports.findByAirdate = function(req, res) {
                 if (result[i].elapsed == 120) {dif = 2; dif_min = 0;}
                 date_end_aux = new Date(y,m,d,h + dif,min + dif_min);
                 //console.log(date_end_aux);
-                doc = {'title': aux, 'start': new Date(date_start_aux.valueOf() - date_start_aux.getTimezoneOffset() * (30000+30000)), 'end': new Date(date_end_aux.valueOf() - date_end_aux.getTimezoneOffset() * (30000+30000)), 'allDay': false, 'url': aux_lnk};
+                doc = {'title': aux, 'start': new Date(date_start_aux.valueOf() - date_start_aux.getTimezoneOffset() * (30000+30000)), 'end': new Date(date_end_aux.valueOf() - date_end_aux.getTimezoneOffset() * (30000+30000)), 'allDay': false, 'url': aux_lnk, 'dat1': result[i].show, 'dat2': result[i].episode.epnum};
                 //console.log(doc);
                 devolver[j] = doc;
                 //console.log('hola 8');
@@ -118,6 +120,7 @@ exports.findByAirdate = function(req, res) {
             res.jsonp(devolver);
             //console.log("ERR : " + err + " RES : " + JSON.stringify(result));
         });
+
     } else {
         TvShows.aggregate(
         {$match: { 'Episodelist.episode': { '$exists': true } }},    
