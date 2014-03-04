@@ -177,7 +177,8 @@ exports.findByAirdate = function(req, res) {
  */
 
 exports.findByName = function(req, res){
-    //console.log("3");
+    //console.log("serverside");
+    //console.log(req.query.q_just);
     //if (req.query.q_name == "undefined"){ console.log('y1');}
     //if (req.query.q_network == "undefined"){ console.log('y2');}
     //if (req.query.q_sorted == "undefined"){ console.log('y3');}
@@ -200,27 +201,52 @@ exports.findByName = function(req, res){
     if (req.query.q_name == "undefined") {
         if (req.query.q_network == "undefined"){
             // query base
-            TvShows.aggregate(
-                { $unwind: "$users" },
-                { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
-                { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}},
-                { $limit: 50},
-                { $sort: {num: dir}}).exec(function(err, result){
-                    //console.log(result);
-                    if (err) {
-                        console.log(err);
-                        res.render('error', {
-                            status: 500
-                        });
-                    } else {
-                        //console.log("ok_hoy");
-                        //console.log('por defecto');
-                        //console.log(JSON.stringify(result));
+            if (req.query.q_just == "true"){
+                TvShows.aggregate(
+                    { $unwind: "$users" },
+                    { $match: {'users': req.user._id}},
+                    { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
+                    { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}},
+                    { $sort: {num: dir}}).exec(function(err, result){
                         //console.log(result);
-                        //res.jsonp(JSON.stringify(result));
-                        res.jsonp(result);
-                    } 
-            });            
+                        if (err) {
+                            console.log(err);
+                            res.render('error', {
+                                status: 500
+                            });
+                        } else {
+                            //console.log("ok_hoy");
+                            //console.log('por defecto');
+                            //console.log(JSON.stringify(result));
+                            //console.log(result);
+                            //res.jsonp(JSON.stringify(result));
+                            res.jsonp(result);
+                        } 
+                });
+            }else{
+
+                TvShows.aggregate(
+                    { $unwind: "$users" },
+                    { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
+                    { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}},
+                    { $limit: 50},
+                    { $sort: {num: dir}}).exec(function(err, result){
+                        //console.log(result);
+                        if (err) {
+                            console.log(err);
+                            res.render('error', {
+                                status: 500
+                            });
+                        } else {
+                            //console.log("ok_hoy");
+                            //console.log('por defecto');
+                            //console.log(JSON.stringify(result));
+                            //console.log(result);
+                            //res.jsonp(JSON.stringify(result));
+                            res.jsonp(result);
+                        } 
+                });                
+            }           
 
         } else {
             //name undefined and network ok
@@ -231,8 +257,8 @@ exports.findByName = function(req, res){
             //sort_doc2['network.text']= dir;
             //console.log(sort_doc2);
             TvShows.find({ 'network.text': { $regex: req.query.q_network, $options: 'i' } }).sort(sort_doc).exec(function(err, result){
-            //console.log("2");
-            //console.log(err);
+                //console.log("2");
+                //console.log(err);
                 if (err) {
                     console.log(err);
                     res.render('error', {

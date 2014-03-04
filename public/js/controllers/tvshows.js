@@ -9,6 +9,8 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
     $scope.customersCount = 0;
     $scope.maxsize = 50;
 
+    $scope.dynamicTooltip = "I don't care about the others, I just want to see my own, motherfucker (this will be an icon, in the future)";
+
     if (Global.user.twitter){ $scope.a_twitter=true;}
 
     $scope.headers = [
@@ -48,10 +50,10 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
 
     //The function that is responsible of fetching the result from the server and setting the grid to the new result
     $scope.fetchResult = function () {
-        //console.log('fetcj');
+        //console.log($scope.justme);
         //if ($scope.filterCriteria.name.length<4) {$scope.filterCriteria.network = '';}
         //console.log($scope.filterCriteria.name);
-        return TvShowsByName.query({q_name: $scope.filterCriteria.name, q_network: $scope.filterCriteria.network, q_sorted: $scope.filterCriteria.sortedBy, q_dir: $scope.filterCriteria.sortDir}, function (data) {
+        return TvShowsByName.query({q_name: $scope.filterCriteria.name, q_network: $scope.filterCriteria.network, q_sorted: $scope.filterCriteria.sortedBy, q_dir: $scope.filterCriteria.sortDir, q_just: $scope.justme}, function (data) {
             
             var x = Math.floor(data.length/$scope.maxsize);
             if (x >  0) { x = x + 1;}
