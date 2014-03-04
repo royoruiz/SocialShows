@@ -14,7 +14,7 @@
     <td><input on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.name" id="txt_name" type="text" style="width:320px;"/></td>
     <td><input on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.network" type="text" ng-show="4<=filterCriteria.name.length"/><input on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.network" type="text" disabled ng-hide="4<=filterCriteria.name.length"/></td>
     <td></td>
-    <td>Just me <input ng-change="filterResult()" type="checkbox" ng-model="justme"></td>
+    <td>Just me <input ng-change="filterResult()" type="checkbox" ng-model="$parent.justme" tooltip="{{dynamicTooltip}}"></td>
 
   </tr>
 
