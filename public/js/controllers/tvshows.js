@@ -194,10 +194,45 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
             $scope.airday = tvshow.airday;
             $scope.network = tvshow.network.text;
             $scope.episode = $filter('getByTitle')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title);
-            $scope.episodeprev = $filter('getByTitlePrev')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title);
-            $scope.episodenext = $filter('getByTitleNext')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title);
-            $scope.season = $routeParams.season;
+            //console.log("A");
+            $scope.showprev = false;
+            $scope.shownext = false;
+            if ($scope.episode.seasonnum == "01"){
+                //console.log("B");
+                if ($routeParams.season - 1 > 0){
+                    //console.log("C");
+                    $scope.episodeprev = $filter('getByTitlePrev')(tvshow.Episodelist[$routeParams.season -2].episode, "previous"); 
+                    $scope.seasonprev = $routeParams.season -1;     
+                }else{
+                    $scope.showprev = true;
+                }
+            }else{
+                //console.log("D");
+                $scope.episodeprev = $filter('getByTitlePrev')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title);
+                $scope.seasonprev = $routeParams.season;  
+            }
+            
+            $scope.episodenext = $filter('getByTitleNext')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title, 1);
+            //console.log("B");
+            if ($scope.episodenext == "_Next_Call"){
+                //console.log("C");
+                if (typeof tvshow.Episodelist[$routeParams.season] === "undefined"){
+                    //console.log("E");
+                    $scope.shownext = true;                    
+                }else{
+                    //console.log("D");
+                    //console.log(tvshow.Episodelist[$routeParams.season].episode);
+                    //$scope.episodenext = $filter('getByTitleNext')(tvshow.Episodelist[$routeParams.season].episode, $routeParams.title, 2);  
+                    $scope.episodenext = tvshow.Episodelist[$routeParams.season].episode[0]
+                    $scope.seasonnext = parseInt($routeParams.season) + 1;
+               }
+                
+            }else{
+                $scope.seasonnext = $routeParams.season;
+            }
 
+            $scope.season = $routeParams.season;
+            //console.log($scope.showprev);
 
         });
         

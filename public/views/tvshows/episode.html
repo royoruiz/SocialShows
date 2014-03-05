@@ -8,8 +8,8 @@
       <h2>{{season}}x{{episode.seasonnum}} - {{episode.title}} </h2> 
       Episode number {{episode.epnum}} aired on {{episode.airdate}}<br>
       <div class="app_title">
-        <span class="app_left"><a data-ng-href="#!/tvshows/{{idshow}}/{{season}}/{{episodeprev.title}}"><i class="icon-arrow-left"></i>{{episodeprev.title}}</a></span>
-        <span class="app_right"><a data-ng-href="#!/tvshows/{{idshow}}/{{season}}/{{episodenext.title}}">{{episodenext.title}}<i class="icon-arrow-right"></i></a></span>
+        <span class="app_left" ng-hide="showprev"><a data-ng-href="#!/tvshows/{{idshow}}/{{seasonprev}}/{{episodeprev.title}}"><i class="icon-arrow-left"></i>{{episodeprev.title}}</a></span>
+        <span class="app_right" ng-hide="shownext"><a data-ng-href="#!/tvshows/{{idshow}}/{{seasonnext}}/{{episodenext.title}}">{{episodenext.title}}<i class="icon-arrow-right"></i></a></span>
       </div></br>
       </br> 
       <img data-ng-src="{{episode.screencap}}" style="width: 300px; height: 200px;">
