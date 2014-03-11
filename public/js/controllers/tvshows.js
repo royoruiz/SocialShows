@@ -176,7 +176,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
 
     };   
 
-
+/*
     $scope.getEpisode = function() {
 
         TvShows.get({
@@ -245,7 +245,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
 
  
     };
-
+*/
     $scope.findOne = function() {
         TvShows.get({
             tvshowsId: $routeParams.tvshowsId
@@ -254,6 +254,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
         });
     };
 
+/*
     $scope.watch = function(showid_in, epnum_in, episode_in, season, opinion, name) {
         var social = Socials.get({
             userId: Global.user._id
@@ -280,13 +281,13 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
                         content: opinion
                     });
                     article.$save(function(response) {
-                        /*
-                        var tweet = new Twitter({opinion: opinion});
-                        tweet.$update(function(){
-                            console.log('hola');
-                            console.log(response);        
-                        });
-                        */
+                        
+                        //var tweet = new Twitter({opinion: opinion});
+                        //tweet.$update(function(){
+                        //    console.log('hola');
+                        //    console.log(response);        
+                        //});
+                        
                         if (Global.user.twitter && $scope.a_twitter){
                             var opi = "";
                             if (!opinion){ 
@@ -307,7 +308,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
             });
 
     };
-
+*/
     $scope.watchAll = function(show, social, clave, comp) {
 
         var crtl = false;
@@ -373,7 +374,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
         });
 
     };    
-
+/*
     $scope.unwatch = function(showid_in, epnum_in) {
         var social = Socials.get({
             userId: Global.user._id
@@ -403,7 +404,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
             });
 
     };
-
+*/
     $scope.unwatchAll = function(show, social) {
 
         var crtl = false;
@@ -424,6 +425,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
 
     };   
 
+/*
     $scope.isWatchTV = function(showid_in, epnum_in) {
         var responsw = false;
         for (var i = $scope.social.watched.length - 1; i >= 0; i--) {
@@ -442,6 +444,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
         return responsw;       
 
     };
+*/
 
   $scope.open = function (tvshow) {
 
