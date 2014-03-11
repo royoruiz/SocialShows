@@ -223,7 +223,7 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
                     //console.log("D");
                     //console.log(tvshow.Episodelist[$routeParams.season].episode);
                     //$scope.episodenext = $filter('getByTitleNext')(tvshow.Episodelist[$routeParams.season].episode, $routeParams.title, 2);  
-                    $scope.episodenext = tvshow.Episodelist[$routeParams.season].episode[0]
+                    $scope.episodenext = tvshow.Episodelist[$routeParams.season].episode[0];
                     $scope.seasonnext = parseInt($routeParams.season) + 1;
                }
                 

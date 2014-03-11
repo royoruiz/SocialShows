@@ -65,7 +65,8 @@ exports.findByAirdate = function(req, res) {
     if (req.user){        
 
         TvShows.aggregate(
-        {$match: { 'Episodelist.episode': { '$exists': true } }},  
+        //{$match: { 'Episodelist.episode': { '$exists': true } }}, 
+        { $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}, {'users': req.user._id}]}}, 
         {$unwind: '$Episodelist'}, 
         {$project: {_id: 0, show_id: '$_id', show: '$showid',airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}}, 
         {$unwind: '$episode'}, 
