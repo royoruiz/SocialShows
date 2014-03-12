@@ -204,8 +204,8 @@ exports.findByName = function(req, res){
             // query base
             if (req.query.q_just == "true"){
                 TvShows.aggregate(
+                    { $match: {'users': req.user._id}},                    
                     { $unwind: "$users" },
-                    { $match: {'users': req.user._id}},
                     { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
                     { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}},
                     { $sort: {num: dir}}).exec(function(err, result){
