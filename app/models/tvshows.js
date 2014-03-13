@@ -33,7 +33,8 @@ var TvShows = new Schema({
 									}]
 						} 
 					],					
-	users			: [{type: Schema.ObjectId, ref: 'User', unique: true}]
+	users			: [{type: Schema.ObjectId, ref: 'User', unique: true}],
+	followers		: { type: Number}
 
 });
 

@@ -25,6 +25,7 @@ exports.update = function(req, res) {
     var tvshow = req.tvshow;
 
     tvshow.users.push(req.user);
+    tvshow.followers = tvshow.users.length;
     
     tvshow.save(function(err) {
         res.jsonp(tvshow);
@@ -39,6 +40,7 @@ exports.destroy = function(req, res) {
     var tvshow = req.tvshow;
 
     tvshow.users.pop(req.user);
+    tvshow.followers = tvshow.users.length;
     
     tvshow.save(function(err) {
         res.jsonp(tvshow);
@@ -226,12 +228,14 @@ exports.findByName = function(req, res){
                 });
             }else{
 
-                TvShows.aggregate(
-                    { $unwind: "$users" },
-                    { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
-                    { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}},
-                    { $limit: 50},
-                    { $sort: {num: dir}}).exec(function(err, result){
+                //TvShows.aggregate(
+                //    { $unwind: "$users" },
+                //    { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
+                //    { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}},
+                //    { $sort: {num: dir}},
+                TvShows.find(
+                    { 'followers': {$gt: 0} }).sort({'followers': dir}).limit(50).exec(function(err, result){
+                //    { $limit: 50}).exec(function(err, result){
                         //console.log(result);
                         if (err) {
                             console.log(err);
@@ -291,7 +295,7 @@ exports.findByName = function(req, res){
             });
 
         } else {
-            //name ok and network ok
+            //name ok and network osk
             TvShows.find({ $and: [{'name': { $regex: req.query.q_name, $options: 'i' }}, {'network.text': { $regex: req.query.q_network, $options: 'i' }}] }).sort(sort_doc).exec(function(err, result){
             //console.log(result);
                 if (err) {
