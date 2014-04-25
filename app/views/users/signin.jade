@@ -1,7 +1,7 @@
 extends auth
 
 block auth
-  form.signin.form-horizontal(action="/users/session", method="post")
+  form.signin.form-horizontal(action="/users/session", method="post").show-form-signup
     p.error= message
     .control-group
       label.control-label(for='email') Email

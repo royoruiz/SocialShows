@@ -1,30 +1,23 @@
 <div class="navbar-inner" data-ng-controller="HeaderController">
     <ul class="nav">
         <li>
-            <a class="brand" href="/">Social Shows</a>
+            <a class="brand" href="/">Showity.tv</a>
         </li>
-        <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
-            <a href="#!/{{item.link}}">{{item.title}}</a>
-        </li>
+        <img src="../img/generic/TV.png" height="100" width="146" style="padding-top: 5px;">
+        <img src="../img/generic/marks.png"  height="100" width="247" style="padding-top: 8px; padding-left: 80px;">
     </ul>
     <ul class="nav pull-right" data-ng-hide="global.authenticated">
-        <li><a href="signup">Signup</a>
-        </li>
-        <li class="divider-vertical"></li>
-        <li><a href="signin">Signin</a>
-        </li>
+        <div class="show-menu-sign">
+            <li><img src="../img/generic/signin.png" height="15" width="41.7" style="margin-bottom: -5px;"><a href="signup">SIGN UP</a>
+            </li>
+            <li style="padding-top: 15px;"><img src="../img/generic/signup.png" height="15" width="41.7" style="margin-top: -10px;"><a href="signin">SIGN IN</a>
+            </li>
+        </div>
     </ul>
     <ul class="nav pull-right" data-ng-show="global.authenticated">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-				{{global.user.name}} <b class="caret"></b>
-			</a>
-            <ul class="dropdown-menu">
-                <li><a href="#!/mypanel/{{global.user._id}}">My Panel</a>
-                </li>
-                <li><a href="/signout">Signout</a>
-                </li>
-            </ul>
-        </li>
+        <ul class="show-menu">
+            <li style="padding-top: 10px;">Hey, <span style="color: red">{{global.user.name}}</span>, Mark Your Shows!</li>   
+            <li style="padding-top: 35px; text-align: right;"><a href="/signout">Signout</a> - <a href="#!/mypanel/{{global.user._id}}">My Stuff</a></li>
+        </ul>
     </ul>
 </div>

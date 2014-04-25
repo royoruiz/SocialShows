@@ -1,4 +1,16 @@
 <section data-ng-controller="IndexController">
-	<h1>All this shows are pending for you... loser!!</h1>
-	<div ui-calendar="uiConfig.calendar" ng-model="eventSources">
+  <div class="row-fluid">
+    <div class="span3">
+      <!--Sidebar content-->
+      <div class="sidebar-nav">
+      	<ul class="nav nav-list show-sidebar">
+      		<li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
+            <a href="#!/{{item.link}}">{{item.title}}</a>
+        </li>
+      	<ul>
+      </div>
+    </div>
+    <div class="span9 show-content">
+		<div ui-calendar="uiConfig.calendar" ng-model="eventSources">
+	</div>
 </section>

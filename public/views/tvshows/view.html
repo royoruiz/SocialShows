@@ -1,45 +1,53 @@
 <section data-ng-controller="TvShowsController" data-ng-init="findOne()">
-<div class="row-fluid">
-
-    <div class="span2">
+  <div class="row-fluid" style="padding-top: 50px;">
+    <div class="span3">
     <!--Sidebar content-->
-
-    </div>
-    <div class="span6">
-    <!--Body content-->
-	
-		<span>Seasons {{tvshow.totalseasons}} {{tvshow.started | date:'medium'}} and {{tvshow.ended | date:'medium'}} {{tvshow.network.country}} {{tvshow.network.text}}
-		</span> <br>
-		<span><img src={{tvshow.image}}></span>
-		<h2>{{tvshow.name}}</h2>
-		<div>{{tvshow.content}}</div>
-
-		<tabset>
-			<tab ng-repeat="season in tvshow.Episodelist" heading="S{{season.no}}" active="season.active">
-      			<ul class="unstyled">
-					<li data-ng-repeat="episodes in season.episode">
-						<span>{{season.no}}x{{episodes.seasonnum}} <a data-ng-href="#!/tvshows/{{tvshow._id}}/{{season.no}}/{{episodes.title}}">{{episodes.title}}</a></span>
-					</li>
-				</ul>
-    		</tab>
-		</tabset>	
-	
-	</div>
-    <div class="span2">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title"><a data-ng-href="#!/tvshows/{{idshow}}">{{tvshow.name}}</a></h4>
-        </div>
-        <div class="panel-body">
-          Status <b>{{tvshow.status}}</b></br>
-          Total Seasons <b>{{tvshow.totalseasons}}</b></b></br>
-          Started <b>{{tvshow.started}}</b></br>
-          Ended <b>{{tvshow.ended}}</b></br>
-          Network <b>{{tvshow.network.text}}</b></br>
-          Runtime <b>{{tvshow.runtime}}</b></br>
-          Airtime <b>On {{tvshow.airday}}, at {{tvshow.airtime}}</b>
-        </div>
+      <div class="sidebar-nav">
+        <ul class="nav nav-list show-sidebar">
+          <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
+            <a href="#!/{{item.link}}">{{item.title}}</a>
+          </li>
+        <ul>
       </div>
     </div>
-</div>
+    <div class="span9 show-content">
+      <div class="show-tv-title">{{tvshow.name}}
+      </div>
+      <br>
+      <div>
+        <div class="show-tv-img" style="height:{{h + 50}}px;">
+          <div style="position:relative;">
+            <div id="show-esq1" style="width:{{w/4}}px; height:{{h/4}}px; float:left;"></div>
+            <div style="width:{{w/4}}px; height:{{h/4}}px; float:left;"></div>
+            <div style="width:{{w/4}}px; height:{{h/4}}px; float:left;"></div>
+            <div style="width:{{w/4}}px; height:{{h/4}}px; float:left;"></div>
+            <div style="width:{{w/2}}px; height:{{h/2}}px; position:absolute; top:{{h/2}}px;"></div>
+            <div id="show-esq2" style="width:{{w/4}}px; height:{{h/4}}px; position:absolute;top:{{h/2+90}}px; left:{{w/2+120}}px; padding-top: 0px; padding-right: 0px"></div>
+            <div style="position:absolute; top:20px; left:20px;"><img data-ng-src="{{tvshow.image}}" style="width: 300px; height: 200px;"></div>
+          </div> 
+        </div>       
+        <div class="show-tv-info">
+          <span class="show-tv-info-line">Status</span> {{tvshow.status}}</br>
+          <span class="show-tv-info-line">Total Seasons</span> {{tvshow.totalseasons}}</br></span>
+          <span class="show-tv-info-line">Started </span> {{tvshow.started}}</br></span>
+          <span class="show-tv-info-line">Ended </span> {{tvshow.ended}}</br></span>
+          <span class="show-tv-info-line">Network </span> {{tvshow.network.text}}</br></span>
+          <span class="show-tv-info-line">Runtime </span> {{tvshow.runtime}}</br></span>
+          <span class="show-tv-info-line">Airtime </span> On {{tvshow.airday}}, at {{tvshow.airtime}}</br></span>
+        </div>
+      
+        <div style="clear: both !important; position: relative;">{{tvshow.content}}</div>
+
+        <tabset style="clear: both !important; position: relative;padding-top: 20px;" id="show-tabset">
+          <tab ng-repeat="season in tvshow.Episodelist" heading="SEASON {{season.no}}" active="season.active">
+		        <ul class="unstyled">
+		          <li data-ng-repeat="episodes in season.episode" style="line-height:22px">
+		            <span class="show-tab-li">{{season.no}}x{{episodes.seasonnum}} <a id="show-lnk-epi" data-ng-href="#!/tvshows/{{tvshow._id}}/{{season.no}}/{{episodes.title}}">{{episodes.title}}</a></span>
+	            </li>
+            </ul>
+          </tab>
+        </tabset>
+      </div>    
+    </div>
+  </div>  
 </section>

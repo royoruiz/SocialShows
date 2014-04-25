@@ -1,44 +1,55 @@
 <section data-ng-controller="Episode" data-ng-init="getEpisode()">
   <div class="row-fluid">
-    <div class="span2">
-      <!--Sidebar content-->
+    <div class="span3">
+    <!--Sidebar content-->
+      <div class="sidebar-nav">
+        <ul class="nav nav-list show-sidebar">
+          <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
+            <a href="#!/{{item.link}}">{{item.title}}</a>
+          </li>
+        <ul>
+      </div>
     </div>
-    <div class="span6">
+    <div class="span9 show-content">
+      <div class="show-tv-title"><a data-ng-href="#!/tvshows/{{idshow}}">{{name}}</a></div>
+      <br>
       <!--Body content-->  
-      <h2>{{season}}x{{episode.seasonnum}} - {{episode.title}} </h2> 
-      Episode number {{episode.epnum}} aired on {{episode.airdate}}<br>
       <div class="app_title">
-        <span class="app_left" ng-hide="showprev"><a data-ng-href="#!/tvshows/{{idshow}}/{{seasonprev}}/{{episodeprev.title}}"><i class="icon-arrow-left"></i>{{episodeprev.title}}</a></span>
-        <span class="app_right" ng-hide="shownext"><a data-ng-href="#!/tvshows/{{idshow}}/{{seasonnext}}/{{episodenext.title}}">{{episodenext.title}}<i class="icon-arrow-right"></i></a></span>
-      </div></br>
-      </br> 
-      <img data-ng-src="{{episode.screencap}}" style="width: 300px; height: 200px;">
-      <div class="caption">
-        <p><br>
-        <form class="form-horizontal" data-ng-submit="watch(showid,episode.epnum, episode, season, opinion,name)" ng-hide="isWatchTV(showid,episode.epnum)">
-            <input data-ng-model="opinion" type="text" id="opinion" ngMaxlength="40">
-            <button type="submit" class="btn btn-primary" ng-disabled="40<=opinion.length">Watch</button>
-            <p>You have <span id="charsLeft">{{40 - opinion.length}}</span> chars left.
-            <p>Twitter: <input type="checkbox" ng-model="a_twitter"> <br/>
-        </form>
-        <form class="form-horizontal" data-ng-submit="unwatch(showid,episode.epnum)" ng-show="isWatchTV(showid,episode.epnum)"><button type="submit" class="btn">Unwatch</button></form>
+        <span class="app_left" ng-hide="showprev"><a data-ng-href="#!/tvshows/{{idshow}}/{{seasonprev}}/{{episodeprev.title}}">{{seasonprev}}x{{episodeprev.seasonnum}} {{episodeprev.title}} <span id="show-izq"><<</span></a></span>
+        <span class="app_right" ng-hide="shownext"><a data-ng-href="#!/tvshows/{{idshow}}/{{seasonnext}}/{{episodenext.title}}"> <span id="show-der">>></span> {{seasonnext}}x{{episodenext.seasonnum}} {{episodenext.title}}</a></span>
       </div>
+      </br>
+      <div>
+        <div class="show-tv-img" style="height:{{h + 50}}px;">
+          <div style="position:relative;">
+            <div id="show-esq1" style="width:{{w/4}}px; height:{{h/4}}px; float:left;"></div>
+            <div style="width:{{w/4}}px; height:{{h/4}}px; float:left;"></div>
+            <div style="width:{{w/4}}px; height:{{h/4}}px; float:left;"></div>
+            <div style="width:{{w/4}}px; height:{{h/4}}px; float:left;"></div>
+            <div style="width:{{w/2}}px; height:{{h/2}}px; position:absolute; top:{{h/2}}px;"></div>
+            <div id="show-esq2" style="width:{{w/4}}px; height:{{h/4}}px; position:absolute;top:{{h/2+90}}px; left:{{w/2+120}}px; padding-top: 0px; padding-right: 0px"></div>
+            <div style="position:absolute; top:20px; left:20px;"><img data-ng-src="{{episode.screencap}}" style="width: 300px; height: 200px;"></div>
+          </div> 
+        </div>       
+        <div class="show-tv-info-epi">
+          <span class="show-tv-info-line">{{season}}x{{episode.seasonnum}}</span> - {{episode.title}}</br> 
+          <span class="show-tv-info-epi-air">(aired on {{episode.airdate}})</span>
+
+        </div>
+      
+        <div style="clear: both !important; position: relative;"></div>
+        <div style="clear: both !important; position: relative;">
+            <p><br>
+            <form class="form-horizontal" data-ng-submit="watch(showid,episode.epnum, episode, season, opinion,name)" ng-hide="isWatchTV(showid,episode.epnum)">
+              <span id="show-some">Something to say?</span><input data-ng-model="opinion" type="text" id="opinion" size=80 ngMaxlength="40">
+              <button id="show-btn-watch" type="submit" class="" ng-disabled="40<=opinion.length"></button>
+              <p>You have <span id="charsLeft">{{40 - opinion.length}}</span> chars left.
+              <p>Twitter: <input type="checkbox" ng-model="a_twitter"> <br/>
+            </form>
+            <form class="form-horizontal" data-ng-submit="unwatch(showid,episode.epnum)" ng-show="isWatchTV(showid,episode.epnum)"><button type="submit" class="btn">Unwatch</button>
+            </form>
+        </div>
+      </div> 
     </div>  
-    <div class="span2">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title"><a data-ng-href="#!/tvshows/{{idshow}}">{{name}}</a></h4>
-        </div>
-        <div class="panel-body">
-          Status <b>{{status}}</b></br>
-          Total Seasons <b>{{total}}</b></b></br>
-          Started <b>{{started}}</b></br>
-          Ended <b>{{ended}}</b></br>
-          Network <b>{{network}}</b></br>
-          Runtime <b>{{runtime}}</b></br>
-          Airtime <b>On {{airday}}, at {{airtime}}</b>
-        </div>
-      </div>
-    </div>
   </div>
 </section>

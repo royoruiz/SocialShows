@@ -7,6 +7,25 @@ angular.module('mean.tvshows').controller('Episode', ['$scope', '$routeParams', 
 
     if (Global.user.twitter){ $scope.a_twitter=true;}
 
+    $scope.menu = [{
+        "title": "Calendar",
+        "link": ""
+
+    }, {
+        "title": "Search Your Show",
+        "link": "tvshows"
+/*    }, {
+        "title": "Activity Deck",
+        "link": "tvshows"
+    }, {
+        "title": "Articles",
+        "link": "articles"
+    }, {
+        "title": "Create New Article",
+        "link": "articles/create"
+*/
+    }];   
+
     $scope.getEpisode = function() {
 
         TvShows.get({
@@ -25,6 +44,11 @@ angular.module('mean.tvshows').controller('Episode', ['$scope', '$routeParams', 
             $scope.network = tvshow.network.text;
             $scope.episode = $filter('getByTitle')(tvshow.Episodelist[$routeParams.season -1].episode, $routeParams.title);
             //console.log("A");
+            $scope.h = $scope.geth($scope.episode.screencap);       
+            $scope.w = $scope.getw($scope.episode.screencap);
+            $scope.h = 200;
+            $scope.w = 300;
+
             $scope.showprev = false;
             $scope.shownext = false;
             if ($scope.episode.seasonnum == "01"){
@@ -75,6 +99,23 @@ angular.module('mean.tvshows').controller('Episode', ['$scope', '$routeParams', 
 
  
     };
+
+    $scope.geth = function(img) {
+        var i = new Image();
+        i.src = img;
+        var h = i.height;
+        return h;
+
+    };
+
+    $scope.getw = function(img) {
+        var i = new Image();
+        i.src = img;
+        var w = i.width;
+        return w;
+
+    };
+
 
     $scope.watch = function(showid_in, epnum_in, episode_in, season, opinion, name) {
         var social = Socials.get({

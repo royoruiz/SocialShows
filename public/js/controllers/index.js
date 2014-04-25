@@ -1,14 +1,38 @@
 angular.module('mean.system').controller('IndexController', ['$scope', 'Global','TvShowsByDate','Socials', function ($scope, Global, TvShowsByDate, Socials) {
     $scope.global = Global;
 
+    $scope.menu = [{
+        "title": "Calendar",
+        "link": ""
+
+    }, {
+        "title": "Search Your Show",
+        "link": "tvshows"
+/*    }, {
+        "title": "Activity Deck",
+        "link": "tvshows"
+    }, {
+        "title": "Articles",
+        "link": "articles"
+    }, {
+        "title": "Create New Article",
+        "link": "articles/create"
+*/
+    }];
+
     $scope.uiConfig = {
       calendar:{
         height: 450,
         editable: true,
+        firstDay: 1,
+        buttonText: {
+          prev: '',
+          next: ''
+        },
         header:{
-          left: 'month basicWeek basicDay agendaWeek agendaDay',
+          left: 'prev',
           center: 'title',
-          right: 'prev,next'
+          right: 'next'
         },
         dayClick: $scope.alertEventOnClick,
         eventDrop: $scope.alertOnDrop,

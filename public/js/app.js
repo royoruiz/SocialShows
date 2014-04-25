@@ -1,4 +1,4 @@
-window.app = angular.module('mean', ['ngCookies', 'ngResource' ,'ui.bootstrap', 'ui.route','ui.calendar','ui.bootstrap.pagination', 'mean.system', 'mean.articles','mean.tvshows','mean.socials','mean.twitter','mean.publicusers','mean.tvshowsbydate','mean.tvshowsbyname']);
+window.app = angular.module('mean', ['ngCookies', 'ngResource' ,'ngSanitize','ui.bootstrap', 'ui.route','ui.calendar','ui.bootstrap.pagination', 'mean.system', 'mean.articles','mean.tvshows','mean.socials','mean.twitter','mean.publicusers','mean.tvshowsbydate','mean.tvshowsbyname']);
 
 angular.module('mean.system', []);
 angular.module('mean.articles', []);

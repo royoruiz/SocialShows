@@ -45,7 +45,7 @@ var defaults = {
 	
 	// time formats
 	titleFormat: {
-		month: 'MMMM yyyy',
+		month: 'MMMM  \"yy',
 		week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
 		day: 'dddd, MMM d, yyyy'
 	},
@@ -1624,7 +1624,8 @@ var dateFormatters = {
 	HH	: function(d)	{ return zeroPad(d.getHours()) },
 	d	: function(d)	{ return d.getDate() },
 	dd	: function(d)	{ return zeroPad(d.getDate()) },
-	ddd	: function(d,o)	{ return o.dayNamesShort[d.getDay()] },
+	//ddd	: function(d,o)	{ return o.dayNamesShort[d.getDay()] },
+	ddd	: function(d,o)	{ return o.dayNames[d.getDay()] },
 	dddd: function(d,o)	{ return o.dayNames[d.getDay()] },
 	M	: function(d)	{ return d.getMonth() + 1 },
 	MM	: function(d)	{ return zeroPad(d.getMonth() + 1) },

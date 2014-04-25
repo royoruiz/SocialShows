@@ -1,7 +1,7 @@
 extends auth
 
 block auth
-  form.signup.form-horizontal(action="/users", method="post")
+  form.signup.form-horizontal(action="/users", method="post").show-form-signup
     .control-group
       label.control-label(for='name') Full name
       .controls

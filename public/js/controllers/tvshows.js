@@ -5,9 +5,31 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
             $scope.social = social;
        });
 
+    $scope.menu = [{
+        "title": "Calendar",
+        "link": ""
+
+    }, {
+        "title": "Search Your Show",
+        "link": "tvshows"
+/*    }, {
+        "title": "Activity Deck",
+        "link": "tvshows"
+    }, {
+        "title": "Articles",
+        "link": "articles"
+    }, {
+        "title": "Create New Article",
+        "link": "articles/create"
+*/
+    }];    
+
     //$scope.totalPages = 0;
     $scope.customersCount = 0;
     $scope.maxsize = 50;
+    
+    $scope.h = 200;
+    $scope.w = 300;
 
     $scope.dynamicTooltip = "I don't care about the others, I just want to see my own, motherfucker (this will be an icon, in the future)";
 
@@ -15,23 +37,23 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
 
     $scope.headers = [
     {
-        title: 'Order',
+        title: '',
         value: 'order'
     },
     {
-        title: 'Name',
+        title: '',
         value: 'name'
     },    
     {
-        title: 'Network',
+        title: '',
         value: 'network'
     },
     {
-        title: 'Populate',
+        title: '<span id="show-how">HOW</span> <span id=\'show-many\'>many</span> <span id=\"show-people\">PEOPLE</span><br> <span id=\'show-watch\'>watch</span> <span id=\'show-this\'>THIS</span>',
         value: 'populate'
     },
     {
-        title: 'Actions',
+        title: '<span id="show-what">WHAT</span> <span id="show-about">about</span> <span id="show-me">ME</span><span id="show-qm">?</span>',
         value: 'actions'
     }];   
 
@@ -249,9 +271,31 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
     $scope.findOne = function() {
         TvShows.get({
             tvshowsId: $routeParams.tvshowsId
-        }, function(tvshow) {
+        }, function(tvshow) {  
+            //$scope.h = $scope.geth(tvshow.image);       
+            //$scope.w = $scope.getw(tvshow.image);
+            $scope.h = 200;
+            $scope.w = 300;
             $scope.tvshow = tvshow;
+
         });
+
+    };
+
+    $scope.geth = function(img) {
+        var i = new Image();
+        i.src = img;
+        var h = i.height;
+        return h;
+
+    };
+
+    $scope.getw = function(img) {
+        var i = new Image();
+        i.src = img;
+        var w = i.width;
+        return w;
+
     };
 
 /*

@@ -1,0 +1,117 @@
+@font-face{
+    font-family: 'Always';
+    src: url("../fonts/Always-In-My-Heart.ttf") format('truetype')
+}
+@font-face{
+    font-family: 'Beanpole';
+    src: url("../fonts/BEANPOLE.ttf") format('truetype')
+}
+@font-face{
+    font-family: 'Lobster';
+    src: url("../fonts/Lobster-1.4.otf") format("opentype")
+}
+@font-face{
+    font-family: 'AvenirBlack';
+    src: url("../fonts/AvenirBlack.otf") format("opentype")
+}
+@font-face{
+    font-family: 'AvenirMedium';
+    src: url("../fonts/AvenirMedium.otf") format("opentype")
+}
+@font-face{
+    font-family: 'AvenirRoman';
+    src: url("../fonts/AvenirRoman.otf") format("opentype")
+}
+
+
+.fc-button-prev {
+    background-image: url('../img/generic/left.png');
+    display:block;
+	width:67px;
+	height:52px;
+}
+
+.fc-button-next {
+    background-image: url('../img/generic/right.png');
+	width:67px;
+	height:52px;
+}
+
+.fc-state-default {
+    background-color: #FFFFFF;
+    background-repeat: no-repeat;
+    border-color: #FFFFFF;
+    box-shadow: none;
+    color: #FFFFFF;
+    text-shadow: none;
+}
+
+.fc-header .fc-state-hover{
+	z-index: 0;
+}
+
+.fc-state-hover {
+    background-position: 0 0;
+    color: #333333;
+    text-decoration: none;
+    transition: background-position 0.1s linear 0s;
+}
+
+.fc-header-title {
+	font-family: Beanpole;   
+    font-size: 25px;
+}
+
+.fc-view-month {
+	font-family: AvenirRoman;  
+}
+.show-content .fc-header-center {
+	vertical-align: bottom;
+}
+.show-content thead{
+	height: 60px;
+}
+
+.show-content .fc-first th, .show-content .fc-last th {
+	vertical-align: middle;
+	border-bottom: 2px solid #000000;
+	border-left: 2px solid #000000;
+}
+
+
+.fc-day-header {
+	color: #FFFFFF;
+	background-color: #6495ED;
+}
+.fc-grid .fc-day-number{
+	float: left;
+    padding-left: 5px;
+
+}
+
+
+.fc-border-separate tr.fc-last th, .fc-border-separate tr.fc-last td{
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+
+
+.show-content .fc-border-separate {
+	border: 2px solid #000000;
+	
+}
+
+table.fc-border-separate{
+	border-collapse: collapse;
+}
+
+.fc-border-separate tbody tr.fc-first td, .fc-border-separate tbody tr.fc-first th {
+    border: 2px solid;
+}
+
+
+.fc-border-separate th, .fc-border-separate td {
+    border-width: 2px 0 0 2px;
+    border-color: #000000;
+}
