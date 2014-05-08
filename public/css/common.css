@@ -60,7 +60,7 @@ body {
 }
 
 .show-sidebar > .active > a, .show-sidebar > .active > a:hover, .show-sidebar > .active > a:focus {
-    color: #0000ff;
+    color: #dfa133;
     text-shadow: none;
     background-color: #FFFFFF;
 }
@@ -130,7 +130,7 @@ body {
 }
 
 #show-btn-search{
-    font-family: Lobster;  
+    /*font-family: Lobster;  
     text-decoration:none;
     color:#ffffff;
     font-size:20px;
@@ -140,12 +140,51 @@ body {
     line-height: 18px;
     border-radius: 18px;
     box-shadow: none;
-    margin-bottom: 6px;
+    margin-bottom: 6px;*/
+    background: transparent url("../img/generic/search.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 50px; /* height of the background image */
+    width: 125px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+
  }
+
+ #show-btn-search:hover{
+    /*font-family: Lobster;  
+    text-decoration:none;
+    color:#ffffff;
+    font-size:20px;
+    font-weight:bold;
+    height:40px;
+    width:90px;
+    line-height: 18px;
+    border-radius: 18px;
+    box-shadow: none;
+    margin-bottom: 6px;*/
+    background: transparent url("../img/generic/search2.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 54px; /* height of the background image */
+    width: 130px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+
+ }
+
 #show-btn-watch{
     background: transparent url("../img/generic/mark.png") 0 0 no-repeat;
     display: inline-block;
     height: 51px; /* height of the background image */
+    width: 132px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+    
+}
+
+#show-btn-watch:hover{
+    background: transparent url("../img/generic/mark2.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 55px; /* height of the background image */
     width: 132px; /* width of the background image */
     border-bottom: 0px;
     border-right: 0px;
@@ -202,12 +241,21 @@ body {
 }
 
 .show-tshows tbody > tr:nth-child(2n+1) > #show-td1 {
-    color: #0000FF;
+    color: #9f006f;
     text-align: right;
 }
 
 .show-tshows tbody > tr:nth-child(2n+1) > #show-td4  {
-    color: #0000FF;
+    color: #9f006f;
+}
+
+.show-tshows tbody > tr:nth-child(2n) > #show-td1 {
+    color: #009bdb;
+    text-align: right;
+}
+
+.show-tshows tbody > tr:nth-child(2n) > #show-td4  {
+    color: #009bdb;
 }
 
 .show-tshows tbody > tr > #show-td1 {
@@ -261,11 +309,19 @@ body {
     height: 27px;
 }
 .show-btn-follow:hover{ 
-      background-position:  0px -52px;
+      background-image: url("../img/generic/follow2.png");
+     background-position:  0px 0px;
+    background-repeat: no-repeat;
+    border: 0px;
+    background-color: none;
+    cursor: pointer;
+    outline: 0;
+    width: 80px;
+    height: 29px;     
 }
 
 .show-btn-follow:active{
-      background-position:  0px -104px;
+      background-image: url("../img/generic/follow.png");
 }
 
 .show-btn-unfollow { 
@@ -280,11 +336,19 @@ body {
     height: 27px;
 }
 .show-btn-unfollow:hover{ 
-      background-position:  0px -52px;
+    background-image: url("../img/generic/unfollow2.png");
+    background-position:  0px 0px;
+    background-repeat: no-repeat;
+    border: 0px;
+    background-color: none;
+    cursor: pointer;
+    outline: 0;
+    width: 80px;
+    height: 29px;
 }
 
 .show-btn-unfollow:active{
-      background-position:  0px -104px;
+    background-image: url("../img/generic/unfollow.png");
 }
 
 
@@ -300,11 +364,19 @@ body {
     outline: 0;
 }
 .show-btn-uncheck:hover{ 
-      background-position:  0px -52px;
+    background-image: url("../img/generic/uncheckall2.png");
+    background-position:  0px 0px;
+    background-repeat: no-repeat;
+    width: 114px;
+    height: 29px;
+    border: 0px;
+    background-color: none;
+    cursor: pointer;
+    outline: 0;
 }
 
 .show-btn-uncheck:active{
-      background-position:  0px -104px;
+    background-image: url("../img/generic/uncheckall.png");
 }
 
 

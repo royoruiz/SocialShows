@@ -157,7 +157,7 @@ angular.module('mean.tvshows').controller('Episode', ['$scope', '$routeParams', 
                             }else{
                                 opi = '- ' + opinion;
                             }
-                            var tweet = new Twitter({opinion: tit + ' ' + opi + ' http://app.forillodelroyo.net/#!articles/' + article._id});
+                            var tweet = new Twitter({opinion: tit + ' ' + opi + ' http://www.showity.tv/#!articles/' + article._id});
                             tweet.$get();
                         } else {
                             console.log("We don't send a tweet because you don't want, remeber that...");
