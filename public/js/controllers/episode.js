@@ -14,6 +14,9 @@ angular.module('mean.tvshows').controller('Episode', ['$scope', '$routeParams', 
     }, {
         "title": "Search Your Show",
         "link": "tvshows"
+    }, {
+        "title": "Shows Pending",
+        "link": "list"
 /*    }, {
         "title": "Activity Deck",
         "link": "tvshows"

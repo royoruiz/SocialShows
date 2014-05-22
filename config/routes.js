@@ -102,6 +102,7 @@ module.exports = function(app, passport, auth) {
     app.get('/tvshowsbyname', tvshows.findByName);
     app.put('/tvshowsbyname/:tvshowsId', auth.requiresLogin, tvshows.update);
     app.del('/tvshowsbyname/:tvshowsId', auth.requiresLogin, tvshows.destroy);
+    app.get('/list', tvshows.list);
 
     //Finish with setting up the tvshowsId param
     app.param('tvshowsId', tvshows.tvshow);

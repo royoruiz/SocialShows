@@ -58,16 +58,11 @@ exports.show = function(req, res) {
  * List of TvShows by airdate
  */
 exports.findByAirdate = function(req, res) {
-    //console.log(req.user);
-    //var respons = TvShows.find({'Episodelist.episode.airdate' : {'$gte': req.query.ini, '$lt': req.query.fin}});
-    //db.tvshows.aggregate({$unwind: '$Episodelist'}, {$project: {season: '$Episodelist.no', episode:'$Episodelist.episode'}}, {$unwind: '$episode'}, {$match: {'episode.airdate': {$gte: "2013-10-27", $lt: "2013-12-08"}}})
 
-    //{title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-    //console.log("entro");
     if (req.user){        
 
         TvShows.aggregate(
-        //{$match: { 'Episodelist.episode': { '$exists': true } }}, 
+
         { $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}, {'users': req.user._id}]}}, 
         {$unwind: '$Episodelist'}, 
         {$project: {_id: 0, show_id: '$_id', show: '$showid',airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}}, 
@@ -76,9 +71,9 @@ exports.findByAirdate = function(req, res) {
         {$unwind: '$users'},
         {$match: {'users': req.user._id}},   
         function(err, result) {
-            //console.log("hola");
+
             if (err) console.log("ERR : " + err);
-            //else console.log("RES : " + JSON.stringify(result));
+
 
             var parrilla = JSON.stringify(result);
             var j = 0;
@@ -97,31 +92,25 @@ exports.findByAirdate = function(req, res) {
                 d = result[i].episode.airdate.substring(8,10);
                 h = parseInt(result[i].airtime.substring(0,2));
                 min = parseInt(result[i].airtime.substring(3,6));
-                //console.log(y);
-                //console.log(m);
-                //console.log(d);
-                //console.log(h);
-                //console.log(h+1);
-                //console.log(min);
+
                 date_start_aux = new Date(y,m,d,h,min);
-                //console.log(date_start_aux);
-                //console.log(result[i].elapsed);
+
                 dif = 0;
                 dif_min = 0;
                 if (result[i].elapsed == 60) {dif = 1; dif_min = 0;}
                 if (result[i].elapsed == 30) {dif = 0; dif_min = 30;}
                 if (result[i].elapsed == 120) {dif = 2; dif_min = 0;}
                 date_end_aux = new Date(y,m,d,h + dif,min + dif_min);
-                //console.log(date_end_aux);
+
                 doc = {'title': aux, 'start': new Date(date_start_aux.valueOf() - date_start_aux.getTimezoneOffset() * (30000+30000)), 'end': new Date(date_end_aux.valueOf() - date_end_aux.getTimezoneOffset() * (30000+30000)), 'allDay': false, 'url': aux_lnk, 'dat1': result[i].show, 'dat2': result[i].episode.epnum};
-                //console.log(doc);
+
                 devolver[j] = doc;
-                //console.log('hola 8');
+
                 j++;
             }
-            //console.log(devolver);
+
             res.jsonp(devolver);
-            //console.log("ERR : " + err + " RES : " + JSON.stringify(result));
+
         });
 
     } else {
@@ -133,7 +122,7 @@ exports.findByAirdate = function(req, res) {
         {$match: {'episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}},   
         function(err, result) {
             if (err) console.log("ERR : " + err);
-            //else console.log("RES : " + JSON.stringify(result));
+
 
             var parrilla = JSON.stringify(result);
             var j = 0;
@@ -148,12 +137,7 @@ exports.findByAirdate = function(req, res) {
                 d = result[i].episode.airdate.substring(8,10);
                 h = parseInt(result[i].airtime.substring(0,2));
                 min = parseInt(result[i].airtime.substring(3,6));
-                //console.log(y);
-                //console.log(m);
-                //console.log(d);
-                //console.log(h);
-                //console.log(h+1);
-                //console.log(min);
+
                 date_start_aux = new Date(y,m,d,h,min);
                 dif = 0;
                 dif_min = 0;
@@ -162,14 +146,14 @@ exports.findByAirdate = function(req, res) {
                 if (result[i].elapsed == 120) {dif = 2; dif_min = 0;}
                 date_end_aux = new Date(y,m,d,h + dif,min + dif_min);
                 doc = {'title': aux, 'start': new Date(date_start_aux.valueOf() - date_start_aux.getTimezoneOffset() * (30000+30000)), 'end': new Date(date_end_aux.valueOf() - date_end_aux.getTimezoneOffset() * (30000+30000)), 'allDay': false};
-                //console.log(doc);
+
                 devolver[j] = doc;
-                //console.log('hola 8');
+
                 j++;
             }
-            //console.log(devolver);
+
             res.jsonp(devolver);
-            //console.log("ERR : " + err + " RES : " + JSON.stringify(result));
+
         });
     }
 
@@ -180,13 +164,7 @@ exports.findByAirdate = function(req, res) {
  */
 
 exports.findByName = function(req, res){
-    //console.log("serverside");
-    //console.log(req.query.q_just);
-    //if (req.query.q_name == "undefined"){ console.log('y1');}
-    //if (req.query.q_network == "undefined"){ console.log('y2');}
-    //if (req.query.q_sorted == "undefined"){ console.log('y3');}
-    //if (req.query.q_dir == "undefined"){console.log('y4');}
-    //console.log(req.query.q_pat[1]);
+
     if (req.query.q_name === ''){ req.query.q_name = "undefined";}
     if (req.query.q_network === ''){ req.query.q_network = "undefined";}
 
@@ -218,49 +196,27 @@ exports.findByName = function(req, res){
                                 status: 500
                             });
                         } else {
-                            //console.log("ok_hoy");
-                            //console.log('por defecto');
-                            //console.log(JSON.stringify(result));
-                            //console.log(result);
-                            //res.jsonp(JSON.stringify(result));
+
                             res.jsonp(result);
                         } 
                 });
             }else{
 
-                //TvShows.aggregate(
-                //    { $unwind: "$users" },
-                //    { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
-                //    { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}},
-                //    { $sort: {num: dir}},
                 TvShows.find(
                     { 'followers': {$gt: 0} }).sort({'followers': dir}).limit(50).exec(function(err, result){
-                //    { $limit: 50}).exec(function(err, result){
-                        //console.log(result);
+
                         if (err) {
                             console.log(err);
                             res.render('error', {
                                 status: 500
                             });
                         } else {
-                            //console.log("ok_hoy");
-                            //console.log('por defecto');
-                            //console.log(JSON.stringify(result));
-                            //console.log(result);
-                            //res.jsonp(JSON.stringify(result));
                             res.jsonp(result);
                         } 
                 });                
             }           
 
         } else {
-            //name undefined and network ok
-            //console.log("1");
-            //console.log(sort_doc);
-            //console.log(req.query.q_network);
-            //var sort_doc2 = {};
-            //sort_doc2['network.text']= dir;
-            //console.log(sort_doc2);
             TvShows.find({ 'network.text': { $regex: req.query.q_network, $options: 'i' } }).sort(sort_doc).exec(function(err, result){
                 //console.log("2");
                 //console.log(err);
@@ -270,8 +226,6 @@ exports.findByName = function(req, res){
                         status: 500
                     });
                 } else {
-                    //console.log("3");
-                    //console.log("ok_hoy");
                     res.jsonp(result);
                 } 
             });            
@@ -281,15 +235,12 @@ exports.findByName = function(req, res){
         if (req.query.q_network == "undefined"){
             //name ok and network undefined
             TvShows.find({ 'name': { $regex: req.query.q_name, $options: 'i' } }).sort(sort_doc).exec(function(err, result){
-            //console.log(result);
                 if (err) {
                     console.log(err);
                     res.render('error', {
                         status: 500
                     });
                 } else {
-                    //console.log("normal");
-                    //console.log(result);
                     res.jsonp(result);
                 } 
             });
@@ -297,20 +248,40 @@ exports.findByName = function(req, res){
         } else {
             //name ok and network osk
             TvShows.find({ $and: [{'name': { $regex: req.query.q_name, $options: 'i' }}, {'network.text': { $regex: req.query.q_network, $options: 'i' }}] }).sort(sort_doc).exec(function(err, result){
-            //console.log(result);
                 if (err) {
                     console.log(err);
                     res.render('error', {
                         status: 500
                     });
                 } else {
-                    //console.log("ok_hoy");
                     res.jsonp(result);
                 } 
             });
 
         }        
     }    
+};
+
+/** 
+ * List of shows with pending episodes for a users
+ *
+ */
+exports.list = function(req, res){
+    TvShows.aggregate(
+        { $match: {'users': req.user._id}},                    
+        { $unwind: "$users" },
+        { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
+        { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}}
+        ).exec(function(err, result){
+            if (err) {
+                console.log(err);
+                res.render('error', {
+                    status: 500
+                });
+            } else {
+                res.jsonp(result);
+            } 
+    });
 };
 
 /**

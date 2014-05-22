@@ -8,6 +8,9 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     }, {
         "title": "Search Your Show",
         "link": "tvshows"
+    }, {
+        "title": "Shows Pending",
+        "link": "list"
 /*    }, {
         "title": "Activity Deck",
         "link": "tvshows"

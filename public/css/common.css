@@ -724,3 +724,50 @@ footer p {
 #show-izq, #show-der{
     font-size: 12px;
 }
+
+/*
+#list-name{
+    display: block;
+}
+*/
+
+#list-episode{
+    text-align: left;
+    font-family: AvenirRoman;
+    font-size: 10px;
+    display: block;
+    padding-left: 50px;
+}
+
+.list-tshows{
+    width: 70%;
+    margin-left: 13%;
+}
+
+.list-tshows th, .list-tshows td {
+    border-top: none;
+}
+
+.list-tshows a{
+    color: #000000;
+    text-decoration: none;
+}
+
+.list-tshows tbody > tr:nth-child(2n+1) > td, .list-tshows tbody > tr:nth-child(2n+1) > th {
+    background-color: #FFFFFF;
+}
+
+#show-list-table-first{
+}
+
+#show-list-epi{
+    text-align: center;
+    vertical-align: text-bottom;
+    font-size: 24px;
+}
+
+#show-list-layer-btn{
+ position:absolute;
+ top:0;
+ right:0;
+}
