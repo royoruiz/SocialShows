@@ -87,13 +87,9 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                             shows_returning.push(show);
                             break;         
                         default:
-                            d2 = new Date(date_prev.substring(0, 4), date_prev.substring(5, 7), date_prev.substring(8, 10));
+                            d2 = new Date(date_prev.substring(0, 4), pasrseInt(date_prev.substring(5, 7))-1, date_prev.substring(8, 10));
                             if (d2 > d){
-                                varclass = 'show-list-future';
-                                console.log("A");
-                                console.log(shows[i].name);
-                                console.log(d2);
-                                
+                                varclass = 'show-list-future';                                
 
                             }else{
                                 varclass = 'show-list-past';
@@ -105,16 +101,9 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
 
 
                 }else{
-                    d2 = new Date(date_prev.substring(0, 4), date_prev.substring(5, 7), date_prev.substring(8, 10));
+                    d2 = new Date(date_prev.substring(0, 4), pasrseInt(date_prev.substring(5, 7))-1, date_prev.substring(8, 10));
                     if (d2 > d){
                         varclass = 'show-list-future';
-                        console.log("B");
-                        console.log(shows[i].name);
-                        console.log(date_prev);
-                        console.log(date_prev.substring(0, 4));
-                        console.log(date_prev.substring(5, 7));
-                        console.log(date_prev.substring(8, 10));
-                        console.log(d2);
 
                     }else{
                         varclass = 'show-list-past';
