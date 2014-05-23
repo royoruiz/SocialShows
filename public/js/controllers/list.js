@@ -7,6 +7,8 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
 
     if (Global.user.twitter){ $scope.a_twitter=true;}
 
+    $scope.total = 0;
+
     $scope.menu = [{
         "title": "Calendar",
         "link": ""
@@ -33,17 +35,23 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
         return List.query({}, function (shows) { 
             var show = {};
             var shows_temp = [];
+            var shows_ended = [];
+            var shows_returning = [];
             var sum = 0;
+            var d = new Date();
+            var d2 = new Date();
+            var varclass = "";
             for (var i = shows.length - 1; i >= 0; i--) {
                 s_prev = shows[i].Episodelist[shows[i].Episodelist.length - 1].no;
                 e_prev = shows[i].Episodelist[shows[i].Episodelist.length - 1].episode[shows[i].Episodelist[shows[i].Episodelist.length - 1].episode.length - 1].seasonnum;
                 t_prev = shows[i].Episodelist[shows[i].Episodelist.length - 1].episode[shows[i].Episodelist[shows[i].Episodelist.length - 1].episode.length - 1].title;
                 en_prev = shows[i].Episodelist[shows[i].Episodelist.length - 1].episode[shows[i].Episodelist[shows[i].Episodelist.length - 1].episode.length - 1].epnum;
                 date_prev = shows[i].Episodelist[shows[i].Episodelist.length - 1].episode[shows[i].Episodelist[shows[i].Episodelist.length - 1].episode.length - 1].airdate;
+                sum = 0;
                 for (var j = shows[i].Episodelist.length - 1; j >= 0; j--) {
 
                     var k = shows[i].Episodelist[j].episode.length - 1;
-
+                    sum = sum + k + 1;
                     var aux = false;
 
                     while (k>=0 && !aux){
@@ -63,9 +71,46 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                     }
 
                 };
-                show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': s_prev+'x'+e_prev, 'epnum': en_prev , 'title': t_prev, 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false}    
-                shows_temp.push(show);
-                
+                if ($scope.total == sum) {
+                    switch(shows[i].status){
+                        case "Ended":
+                        case "Canceled":
+                        case "Never Aired":
+                        case "Pilot Rejected":
+                        case "Canceled/Ended":
+                            show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': '', 'epnum': en_prev , 'title': 'No more episodes left.', 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': false, 'class': 'show-list-ended'};
+                            shows_ended.push(show);
+                            break;
+                        case "Returning Series":
+                        case "On Hiatus":
+                            show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': '', 'epnum': en_prev , 'title': 'No more episodes left.', 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': false, 'class': 'show-list-no-more'};
+                            shows_returning.push(show);
+                            break;         
+                        default:
+                            d2 = new Date(date_prev.substring(0, 4), date_prev.substring(5, 7), date_prev.substring(8, 10));
+                            if (d2 > d){
+                                varclass = 'show-list-future';
+
+                            }else{
+                                varclass = 'show-list-past';
+                            }
+                            show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': s_prev+'x'+e_prev, 'epnum': en_prev , 'title': t_prev, 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': true , 'class': varclass};
+                            shows_temp.push(show);
+                            break;                        
+                    }
+
+
+                }else{
+                    d2 = new Date(date_prev.substring(0, 4), date_prev.substring(5, 7), date_prev.substring(8, 10));
+                    if (d2 > d){
+                        varclass = 'show-list-future';
+
+                    }else{
+                        varclass = 'show-list-past';
+                    }
+                    show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': s_prev+'x'+e_prev, 'epnum': en_prev , 'title': t_prev, 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': true, 'class': varclass}    
+                    shows_temp.push(show);
+                }
 
             };
 
@@ -82,15 +127,39 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                 
             };
 
-            var shows_fill = []
-            comp = {};
-            for (var i = 0; i < shows_temp.length - 1; i++) {
-                shows_fill.push(shows_temp[i]);
-                //shows_fill.push(comp);
+            for (var i = 0; i < shows_ended.length - 1; i++) {
+                for (var j = 0; j < shows_ended.length - 1; j++){
+                    if (shows_ended[j].airdate > shows_ended[j+1].airdate){
+                        comp = shows_ended[j];
+                        shows_ended[j] = shows_ended[j+1];
+                        shows_ended[j+1] = comp;
+
+                    }
+                }
+                
             };
 
-            $scope.shows = shows_fill;
+            for (var i = 0; i < shows_returning.length - 1; i++) {
+                for (var j = 0; j < shows_returning.length - 1; j++){
+                    if (shows_returning[j].airdate > shows_returning[j+1].airdate){
+                        comp = shows_returning[j];
+                        shows_returning[j] = shows_returning[j+1];
+                        shows_returning[j+1] = comp;
 
+                    }
+                }
+                
+            };
+
+            for (var i = 0; i < shows_returning.length; i++) {
+                shows_temp.push(shows_returning[i]);
+            };
+
+            for (var i = 0; i < shows_ended.length; i++) {
+                shows_temp.push(shows_ended[i]);
+            };
+
+            $scope.shows = shows_temp;
 
         }, function () {
             //You don't follow any show
@@ -104,6 +173,7 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
         for (var i = $scope.social.watched.length - 1; i >= 0; i--) {
 
             if ($scope.social.watched[i].showid == showid_in){
+                $scope.total = $scope.social.watched[i].epnum.length;
                 for (var j = $scope.social.watched[i].epnum.length - 1; j >= 0; j--) {
                     if ($scope.social.watched[i].epnum[j] == epnum_in){
                         responsw = true;

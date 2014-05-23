@@ -739,6 +739,14 @@ footer p {
     padding-left: 50px;
 }
 
+#list-episode-no-more{
+    text-align: left;
+    font-family: AvenirRoman;
+    font-size: 10px;
+    display: block;
+    
+}
+
 .list-tshows{
     width: 70%;
     margin-left: 13%;
@@ -770,4 +778,21 @@ footer p {
  position:absolute;
  top:0;
  right:0;
+}
+
+.show-list-past{
+    background-color: #D1FFD4;
+}
+
+.show-list-future{
+    background: none repeat scroll 0 0 #EEEEEE;
+}
+
+.show-list-ended{
+
+}
+
+.show-list-no-more{
+    background: none repeat scroll 0 0 #EEEEEE;
+}
 }

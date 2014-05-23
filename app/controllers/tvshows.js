@@ -270,8 +270,8 @@ exports.list = function(req, res){
     TvShows.aggregate(
         { $match: {'users': req.user._id}},                    
         { $unwind: "$users" },
-        { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
-        { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}}
+        { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist", status: "$status"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
+        { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', status:'$_id.status', users: '$users_temp', num: '$count'}}
         ).exec(function(err, result){
             if (err) {
                 console.log(err);

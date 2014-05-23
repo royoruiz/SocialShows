@@ -12,13 +12,14 @@
     </div>
     <div class="span9 show-content">
     	<table class="table table-striped list-tshows">
-        <tr id="show-tab-tr" ng-repeat="show in shows" ng-mouseenter="hover(show)" ng-mouseleave="leave(show)">
+        <tr id="show-tab-tr" ng-repeat="show in shows" ng-mouseenter="hover(show)" ng-mouseleave="leave(show)" class="{{show.class}}">
           <td id="show-list-table-first">
             <div style="position: relative;">
             <span id="show-list-epi">{{show.epi}}</span>
-    			  <span id="list-name"><a href="#!/tvshows/{{show.id}}">{{show.name}}</a><span id="list-episode"><a href="#!/tvshows/{{show.id}}/{{show.season}}/{{show.title}}">{{show.title}}</a>, <i>Aired on {{show.airdate}}</i></span>
+    			  <span id="list-name" ng-show="show.lnk"><a href="#!/tvshows/{{show.id}}">{{show.name}}</a><span id="list-episode"><a href="#!/tvshows/{{show.id}}/{{show.season}}/{{show.title}}">{{show.title}}</a>, <i>Aired on {{show.airdate}}</i></span>
             <div id="show-list-layer-btn"><form class="form-horizontal" data-ng-submit="showform(show)" ng-show="show.showbtn"><button type="submit" class="btn">Watch</button></form></div>
             </span>
+            <span id="list-name" ng-hide="show.lnk"><a href="#!/tvshows/{{show.id}}">{{show.name}}</a><span id="list-episode-no-more">{{show.title}}</span></span>
             <form class="form-horizontal" data-ng-submit="watch(show.showid,show.epnum, show.episode, show.season, opinion, show.name)" ng-show="show.sf">
               <input data-ng-model="opinion" type="text" id="opinion" size=80 ngMaxlength="40">
               <button id="show-btn-watch" type="submit" class="" ng-disabled="40<=opinion.length"></button>
