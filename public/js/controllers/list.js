@@ -110,6 +110,10 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                         varclass = 'show-list-future';
                         console.log("B");
                         console.log(shows[i].name);
+                        console.log(date_prev);
+                        console.log(date_prev.substring(0, 4));
+                        console.log(date_prev.substring(5, 7));
+                        console.log(date_prev.substring(8, 10));
                         console.log(d2);
 
                     }else{
