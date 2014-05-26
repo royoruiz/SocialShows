@@ -54,8 +54,8 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                     sum = sum + k + 1;
                     var aux = false;
 
-                    while (k>=0 && !aux){
-
+                    for (var k = shows[i].Episodelist[j].episode.length - 1; k >= 0; k--) {
+                    
                         aux = $scope.iswatched(shows[i].showid, shows[i].Episodelist[j].episode[k].epnum);
 
                         if (!aux && parseInt(shows[i].Episodelist[j].episode[k].epnum) < parseInt(en_prev)){
@@ -67,10 +67,11 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                             date_prev = shows[i].Episodelist[j].episode[k].airdate;
 
                         }
-                        k--;
-                    }
+
+                    };
 
                 };
+
                 if ($scope.total == sum) {
                     switch(shows[i].status){
                         case "Ended":
