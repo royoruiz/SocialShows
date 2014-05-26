@@ -83,6 +83,8 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                             break;
                         case "Returning Series":
                         case "On Hiatus":
+                        case "Final Season":
+                        case "TBD/On The Bubble":
                             show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': '', 'epnum': en_prev , 'title': 'No more episodes left.', 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': false, 'class': 'show-list-no-more'};
                             shows_returning.push(show);
                             break;         
