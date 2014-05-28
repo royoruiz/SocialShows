@@ -234,10 +234,7 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                     });
                     article.$save(function(response) {
 
-                        if (Global.user.twitter && $scope.a_twitter){
-                            console.log(Global.user.twitter);
-                            console.log($scope.a_twitter);
-                            console.log(a_twitter);
+                        if (Global.user.twitter && a_twitter){
                             var opi = "";
                             if (!opinion){ 
                                 opi = "";
