@@ -20,7 +20,7 @@
             <div id="show-list-layer-btn"><form class="form-horizontal" data-ng-submit="showform(show)" ng-show="show.showbtn"><button type="submit" class="btn">Watch</button></form></div>
             </span>
             <span id="list-name" ng-hide="show.lnk"><a href="#!/tvshows/{{show.id}}">{{show.name}}</a><span id="list-episode-no-more">{{show.title}}</span></span>
-            <form class="form-horizontal" data-ng-submit="watch(show.showid, show.epnum, show, show.season, opinion, show.name)" ng-show="show.sf">
+            <form class="form-horizontal" data-ng-submit="watch(show.showid, show.epnum, show, show.season, opinion, show.name, a_twitter)" ng-show="show.sf">
               <input data-ng-model="opinion" type="text" id="opinion" size=80 ngMaxlength="40">
               <button id="show-btn-watch" type="submit" class="" ng-disabled="40<=opinion.length"></button>
               <p style="font-size:12px">You have <span id="charsLeft">{{40 - opinion.length}}</span> chars left.

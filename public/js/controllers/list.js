@@ -208,7 +208,7 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
       return show.showbtn = false;
     };
 
-    $scope.watch = function(showid_in, epnum_in, episode_in, season, opinion, name) {
+    $scope.watch = function(showid_in, epnum_in, episode_in, season, opinion, name, a_twitter) {
         var social = Socials.get({
             userId: Global.user._id
         }, function(social) {
@@ -225,7 +225,7 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                 if (!crtl) {
                     social.watched.push({showid: showid_in, epnum: [epnum_in], completed: false});
                 }
-                console.log(episode_in);
+                
                 var tit = 'I\'ve  watched ' + name + ' - ' + season + 'x' + episode_in.episode + ' - \"' + episode_in.title + '\"';
                 social.$update(function(){  
                     var article = new Articles({
@@ -235,6 +235,9 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                     article.$save(function(response) {
 
                         if (Global.user.twitter && $scope.a_twitter){
+                            console.log(Global.user.twitter);
+                            console.log($scope.a_twitter);
+                            console.log(a_twitter);
                             var opi = "";
                             if (!opinion){ 
                                 opi = "";
