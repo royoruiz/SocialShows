@@ -225,8 +225,8 @@ angular.module('mean.list').controller('ListController', ['$scope', '$routeParam
                 if (!crtl) {
                     social.watched.push({showid: showid_in, epnum: [epnum_in], completed: false});
                 }
-
-                var tit = 'I\'ve  watched ' + name + ' - ' + season + 'x' + episode_in.seasonnum + ' - \"' + episode_in.title + '\"';
+                console.log(episode_in);
+                var tit = 'I\'ve  watched ' + name + ' - ' + season + 'x' + episode_in.episode + ' - \"' + episode_in.title + '\"';
                 social.$update(function(){  
                     var article = new Articles({
                         title: tit,
