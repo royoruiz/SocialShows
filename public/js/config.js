@@ -18,16 +18,19 @@ window.app.config(['$routeProvider',
         when('/tvshows/:tvshowsId/:season/:title', {
             templateUrl: 'views/tvshows/episode.html'
         }).
-        when('/articles', {
+        when('/wall', {
             templateUrl: 'views/articles/list.html'
         }).
-        when('/articles/create', {
+        when('/wall/:name/:id', {
+            templateUrl: 'views/articles/list.html'
+        }).
+        when('/wall/create', {
             templateUrl: 'views/articles/create.html'
         }).
-        when('/articles/:articleId/edit', {
+        when('/wall/:articleId/edit', {
             templateUrl: 'views/articles/edit.html'
         }).
-        when('/articles/:articleId', {
+        when('/wall/:articleId', {
             templateUrl: 'views/articles/view.html'
         }).
         when('/list', {
@@ -35,6 +38,9 @@ window.app.config(['$routeProvider',
         }).
         when('/mypanel/:userId', {
             templateUrl: 'views/users/mypanel.html'
+        }).
+        when('/friends', {
+            templateUrl: 'views/users/friends.html'
         }).
         when('/', {
             templateUrl: 'views/index.html'

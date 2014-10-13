@@ -1,0 +1,228 @@
+%!Adobe-FontList 1.15
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:AlwaysInMyHeart
+FamilyName:Always In My Heart
+StyleName:Regular
+MenuName:Always In My Heart
+StyleBits:0
+WeightClass:500
+WidthClass:5
+AngleClass:0
+FullName:Always In My Heart
+WritingScript:Roman
+OutlineFileName:\Always In My Heart.ttf
+DataFormat:sfntData
+FileLength:61020
+FileModTime:1361221782
+NameArray:0,Mac,4,Always In My Heart
+NameArray:0,Win,1,Always In My Heart
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AvenirLTStd-Black
+FamilyName:Avenir LT Std
+StyleName:95 Black
+MenuName:Avenir LT Std 65 Medium
+StyleBits:2
+WeightClass:750
+WidthClass:5
+AngleClass:0
+FullName:Avenir LT Std 95 Black
+WritingScript:Roman
+OutlineFileName:\AvenirLTStd-Black.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:27912
+FileModTime:1259144023
+NameArray:0,Mac,4,Avenir LT Std 95 Black
+NameArray:0,Win,1,Avenir LT Std 65 Medium
+NameArray:0,Win,16,Avenir LT Std
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AvenirLTStd-Medium
+FamilyName:Avenir LT Std
+StyleName:65 Medium
+MenuName:Avenir LT Std 65 Medium
+StyleBits:0
+WeightClass:600
+WidthClass:5
+AngleClass:0
+FullName:Avenir LT Std 65 Medium
+WritingScript:Roman
+OutlineFileName:\AvenirLTStd-Medium.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:27264
+FileModTime:1259144023
+NameArray:0,Mac,4,Avenir LT Std 65 Medium
+NameArray:0,Win,1,Avenir LT Std 65 Medium
+NameArray:0,Win,16,Avenir LT Std
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AvenirLTStd-Roman
+FamilyName:Avenir LT Std
+StyleName:55 Roman
+MenuName:Avenir LT Std 55 Roman
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Avenir LT Std 55 Roman
+WritingScript:Roman
+OutlineFileName:\AvenirLTStd-Roman.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:27176
+FileModTime:1259144023
+NameArray:0,Mac,4,Avenir LT Std 55 Roman
+NameArray:0,Win,1,Avenir LT Std 55 Roman
+NameArray:0,Win,16,Avenir LT Std
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:BEANPOLE
+FamilyName:BEAN POLE
+StyleName:Regular
+MenuName:BEAN POLE
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:BEAN POLE
+WritingScript:Roman
+OutlineFileName:\BEANPOLE.ttf
+DataFormat:sfntData
+FileLength:46836
+FileModTime:1285502412
+NameArray:0,Mac,4,BEAN POLE
+NameArray:0,Win,1,BEAN POLE
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:EuroMono-Regular
+OutlineFileName:\Euro Mono.scr
+ResourceID:3068
+MacStyle:0
+FileLength:9749
+FileModTime:1259144024
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:EuroMono-Bold
+OutlineFileName:\Euro Mono.scr
+ResourceID:3068
+MacStyle:1
+FileLength:9749
+FileModTime:1259144024
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:EuroMono-Italic
+OutlineFileName:\Euro Mono.scr
+ResourceID:3068
+MacStyle:2
+FileLength:9749
+FileModTime:1259144024
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:EuroMono-BoldItalic
+OutlineFileName:\Euro Mono.scr
+ResourceID:3068
+MacStyle:3
+FileLength:9749
+FileModTime:1259144024
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:EuroMono-Bold
+OutlineFileName:\Euro Mono.scr
+ResourceID:5853
+MacStyle:0
+FileLength:9749
+FileModTime:1259144024
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:EuroMono-BoldItalic
+OutlineFileName:\Euro Mono.scr
+ResourceID:5853
+MacStyle:2
+FileLength:9749
+FileModTime:1259144024
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:EuroMono-Regular
+FamilyName:Euro Monospace
+StyleName:Regular
+MenuName:Euro Monospace
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Euro Mono Regular
+WritingScript:Roman
+OutlineFileName:\EuroMonReg
+DataFormat:POSTResource
+UsesStandardEncoding:no
+isCFF:no
+FileLength:14706
+FileModTime:895220781
+DesignSize:-1
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:Lobster1.4
+FamilyName:Lobster 1.4
+StyleName:Regular
+MenuName:Lobster 1.4
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Lobster 1.4
+WritingScript:Roman
+OutlineFileName:\Lobster 1.4.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:37632
+FileModTime:1360574226
+NameArray:0,Mac,4,Lobster 1.4
+NameArray:0,Win,1,Lobster 1.4
+%EndFont
+

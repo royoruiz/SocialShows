@@ -22,7 +22,6 @@
     font-family: 'AvenirRoman';
     src: url("../fonts/AvenirRoman.otf") format("opentype")
 }
-
 /*
 .navbar-fixed-top{
     top: 50px;
@@ -143,10 +142,12 @@ body {
     margin-bottom: 6px;*/
     background: transparent url("../img/generic/search.png") 0 0 no-repeat;
     display: inline-block;
-    height: 50px; /* height of the background image */
-    width: 125px; /* width of the background image */
+    height: 51px; /* height of the background image */
+    width: 127px; /* width of the background image */
     border-bottom: 0px;
     border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
 
  }
 
@@ -162,36 +163,88 @@ body {
     border-radius: 18px;
     box-shadow: none;
     margin-bottom: 6px;*/
-    background: transparent url("../img/generic/search2.png") 0 0 no-repeat;
+    background: transparent url("../img/generic/search-h.png") 0 0 no-repeat;
     display: inline-block;
-    height: 54px; /* height of the background image */
-    width: 130px; /* width of the background image */
+    height: 51px; /* height of the background image */
+    width: 127px; /* width of the background image */
     border-bottom: 0px;
     border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
 
  }
 
 #show-btn-watch{
     background: transparent url("../img/generic/mark.png") 0 0 no-repeat;
     display: inline-block;
-    height: 51px; /* height of the background image */
+    height: 52px; /* height of the background image */
     width: 132px; /* width of the background image */
     border-bottom: 0px;
     border-right: 0px;
-    
+    border-top: 0px;
+    border-left: 0px;   
 }
 
 #show-btn-watch:hover{
-    background: transparent url("../img/generic/mark2.png") 0 0 no-repeat;
+    background: transparent url("../img/generic/markaswatched-h.png") 0 0 no-repeat;
     display: inline-block;
-    height: 55px; /* height of the background image */
+    height: 52px; /* height of the background image */
     width: 132px; /* width of the background image */
     border-bottom: 0px;
     border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
+    
+}
+#show-btn-watch2{
+    background: transparent url("../img/generic/markaswatchedpeq.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 28px; /* height of the background image */
+    width: 64px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
     
 }
 
-#show-txt-search, #opinion {
+#show-btn-watch2:hover{
+    background: transparent url("../img/generic/markaswatchedpeq-h.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 28px; /* height of the background image */
+    width: 64px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
+    
+}
+
+#show-btn-watch-list{
+    background: transparent url("../img/generic/watched.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 21px; /* height of the background image */
+    width: 58px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
+    
+}
+
+#show-btn-watch-list:hover{
+    background: transparent url("../img/generic/watched-h.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 21px; /* height of the background image */
+    width: 58px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;    
+    
+}
+
+#show-txt-search, #opinion, #show-txt-reply {
     border: 2px solid #000000;
     border-radius: 0px;
 }
@@ -309,19 +362,19 @@ body {
     height: 27px;
 }
 .show-btn-follow:hover{ 
-      background-image: url("../img/generic/follow2.png");
-     background-position:  0px 0px;
+    background-image: url("../img/generic/follow-h.png");
+    background-position:  0px 0px;
     background-repeat: no-repeat;
     border: 0px;
     background-color: none;
     cursor: pointer;
     outline: 0;
-    width: 80px;
-    height: 29px;     
+    width: 78px;
+    height: 27px;     
 }
 
 .show-btn-follow:active{
-      background-image: url("../img/generic/follow.png");
+    background-image: url("../img/generic/follow.png");
 }
 
 .show-btn-unfollow { 
@@ -336,15 +389,15 @@ body {
     height: 27px;
 }
 .show-btn-unfollow:hover{ 
-    background-image: url("../img/generic/unfollow2.png");
+    background-image: url("../img/generic/unfollow-h.png");
     background-position:  0px 0px;
     background-repeat: no-repeat;
     border: 0px;
     background-color: none;
     cursor: pointer;
     outline: 0;
-    width: 80px;
-    height: 29px;
+    width: 78px;
+    height: 27px;
 }
 
 .show-btn-unfollow:active{
@@ -364,11 +417,11 @@ body {
     outline: 0;
 }
 .show-btn-uncheck:hover{ 
-    background-image: url("../img/generic/uncheckall2.png");
+    background-image: url("../img/generic/uncheckall-h.png");
     background-position:  0px 0px;
     background-repeat: no-repeat;
-    width: 114px;
-    height: 29px;
+    width: 111px;
+    height: 27px;
     border: 0px;
     background-color: none;
     cursor: pointer;
@@ -750,6 +803,7 @@ footer p {
 .list-tshows{
     width: 70%;
     margin-left: 13%;
+    margin-top: 7%;
 }
 
 .list-tshows th, .list-tshows td {
@@ -761,9 +815,11 @@ footer p {
     text-decoration: none;
 }
 
+/*
 .list-tshows tbody > tr:nth-child(2n+1) > td, .list-tshows tbody > tr:nth-child(2n+1) > th {
     background-color: #FFFFFF;
 }
+*/
 
 #show-list-table-first{
 }
@@ -780,12 +836,19 @@ footer p {
  right:0;
 }
 
+#show-list-layer-skip{
+ position:absolute;
+ top: 0;
+ right: 80px;
+
+}
+
 .show-list-past{
-    background-color: #D1FFD4;
+    background-color: #f3d3a6;
 }
 
 .show-list-future{
-    background: none repeat scroll 0 0 #EEEEEE;
+    background: none repeat scroll 0 0 #e0e7b8;
 }
 
 .show-list-ended{
@@ -793,6 +856,168 @@ footer p {
 }
 
 .show-list-no-more{
-    background: none repeat scroll 0 0 #EEEEEE;
+    background: none repeat scroll 0 0 #a6d7f6;
 }
+
+#list-top-bar-txt{
+    /* font-family: 'Amatic SC', cursive;*/
+    font-family: Beanpole;
+    font-size: 65px;
+    float: left;
 }
+#list-top-bar-txt-A, #list-top-bar-txt-B{
+    height: 20px;
+
+}
+
+#list-top-bar-legend{
+    font-family: 'Amatic SC';
+    display: block;
+    float:left;
+    overflow: auto;
+    padding-left: 80px;
+    font-size: 25px;
+}
+
+#list-top-bar-lgn1{
+    display: block;
+
+}
+
+#list-top-bar-lgn2{
+    display: block;
+
+}
+
+#list-top-bar-lgn3{
+
+}
+
+.ov-wall-title{
+    font-family: Beanpole;
+    font-size: 4em;
+    border-bottom: 2px solid #000000;
+    padding-top: 20px;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+}
+
+#ov-wall-username{
+    font-family: AvenirBlack;
+    color: #FAA732;
+    font-size: 1.1em;
+
+}
+
+#ov-wall-created{
+    font-family: AvenirBlack;
+    color: #003884;
+    font-size: 1.1em;
+}
+
+#ov-wall-txt{
+    font-family: AvenirBlack;
+    padding-top: 10px;
+    font-size: 1.3em;
+    padding-bottom: 15px;
+}
+
+ul.articles li:not(:last-child) {
+    border-bottom: 0px;
+}
+
+#ov-friends-h2 {
+    font-family: Beanpole;
+    font-size: 4em; 
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+#ov-friends-img{
+    border-radius: 25px;
+    border: 1px solid #000000;
+    height: 80px;
+    width: 80px;
+}
+
+#ov-friends-txt{
+    font-family: Beanpole;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+#ov-friends-txt a {
+    color: #000000;
+    text-decoration: none;
+    padding-left: 5px;
+}
+
+.ov-friends-search{
+    padding-top: 20px;
+}
+
+.ov-friends-btn{
+    background: transparent url("../img/generic/X-Unfollow.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 34px; /* height of the background image */
+    width: 34px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
+    display: inline-block;
+    vertical-align: bottom;
+    padding-right: 35px;
+
+}
+
+.ov-friends-follow, .ov-friends-follow:active{
+    background: transparent url("../img/generic/follow.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 27px; /* height of the background image */
+    width: 78px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
+    display: inline-block;
+    vertical-align: bottom;
+    padding-right: 35px;
+
+}
+
+.ov-friends-follow:hover {
+    background: transparent url("../img/generic/follow-h.png") 0 0 no-repeat;
+}
+
+.ov-hide{
+    display: none;
+}
+
+#ov-wall-btn-reply{
+    background: transparent url("../img/generic/reply.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 27px; /* height of the background image */
+    width: 78px; /* width of the background image */
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;   
+    display: inline-block;
+    vertical-align: bottom;
+    padding-right: 35px;
+
+}
+
+.ov-padding-left-10 {
+    padding-left: 10px;
+}
+
+.ov-margin-right-10{
+    margin-right: 10px;
+}
+
+.ov-margin {
+    margin-left: 50px;
+}
+

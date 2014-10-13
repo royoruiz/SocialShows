@@ -29,15 +29,17 @@ exports.info = function(req, res) {
  * Update a social
  */
 exports.update = function(req, res) {
-    var social = req.social;
     
-    //social.watched.push(req.body.watched[req.body.watched.length-1]);
+    var social = req.social;
+    social.skiped = req.body.skiped;
     social.watched = req.body.watched;
+    social.friends = req.body.friends;
 
     social.save(function(err) {
         res.jsonp(social);
     });
 };
+
 
 /**
  * Delete an social

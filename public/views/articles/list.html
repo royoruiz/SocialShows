@@ -1,11 +1,41 @@
 <section data-ng-controller="ArticlesController" data-ng-init="find()">
-	<ul class="articles unstyled">
-		<li data-ng-repeat="article in articles">
-			<span>{{article.created | date:'medium'}}</span> /
-			<span>{{article.user.name}}</span>
-			<h2><a data-ng-href="#!/articles/{{article._id}}">{{article.title}}</a></h2>
-			<div>{{article.content}}</div>
-		</li>
-	</ul>
-	<h1 data-ng-hide="!articles || articles.length">No articles yet. <br> Why don't you <a href="/#!/articles/create">Create One</a>?</h1>
+<div class="row-fluid">
+    <div class="span3">
+      <!--Sidebar content-->
+      <div class="sidebar-nav">
+        <ul class="nav nav-list show-sidebar">
+          <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
+            <a href="#!/{{item.link}}">{{item.title}}</a>
+        </li>
+        <ul>
+      </div>
+    </div>
+    <div class="span9 show-content">
+		<ul class="articles unstyled">
+      <span ng-show="show_info_user">
+        <span><form class="form-horizontal" data-ng-submit="addfriend()" ng-hide="myfriend"><button type="submit" class="ov-friends-follow"></button></span><span id="ov-friends-txt" class="ov-padding-left-10">{{username}}</span></form></span>
+        <span><form class="form-horizontal" data-ng-submit="removefriend()" ng-show="myfriend"><button type="submit" class="ov-friends-btn"></button></span><span id="ov-friends-txt">{{username}}</span></form></span>
+      </span>
+      <span>
+        <div class="show-search"><p>Share <span id="show-your">Something</span><img src="../img/generic/flechanaranja.png" class="ov-padding-left-10">
+        <input id="show-txt-search"  ng-show="indsit" on-enter-blur on-blur-change="add()" ng-model="content"  type="text" style="width:320px;"/> <button id="show-btn-search" class="" on-click="add()" ng-show="indsit" type="submit"></button>
+        <input id="show-txt-search"  ng-show="!indsit" on-enter-blur on-blur-change="addwall()" ng-model="content"  type="text" style="width:320px;" class="ov-margin-right-10"/><button id="show-btn-search" class="" on-click="addwall()" ng-show="!indsit" type="submit"></button></p>
+        </div>
+      </span>
+      <div class="ov-wall-title">wall</div>
+			<li data-ng-repeat="article in articles" class="{{article.class_margin}}">
+        <span id="ov-wall-username" ng-show="article.propio">{{article.user.name}}</span><span id="ov-wall-username" ng-show="!article.propio">{{article.creator.name}}</span> - 
+				<span id="ov-wall-created">{{article.created | date:'medium'}}</span> 				
+        <div id="ov-wall-txt">
+          <span ng-show="article.show"><a data-ng-href="#!/wall/{{article._id}}">{{article.title}}</a><br></span>
+          <span ng-show="article.creator.name != article.user.name">{{article.title}}<br></span>
+          {{article.content}}<br>
+          <form data-ng-submit="showfrmreply(article)" class="{{article.class_hide}}"><button id="ov-wall-btn-reply" type="submit"></button></form>
+          <input id="show-txt-reply"  ng-show="indsit && article.showreply" on-enter-blur on-blur-change="add_conver(article, contentreply)" data-ng-model="contentreply"  type="text" style="width:320px;"/> <button id="ov-wall-btn-reply" class="" on-click="add_conver(article, contentreply)" ng-show="indsit && article.showreply" type="submit"></button>
+          <input id="show-txt-reply"  ng-show="!indsit && article.showreply" on-enter-blur on-blur-change="addwall_conver(article, contentreply)" ng-model="contentreply"  type="text" style="width:320px;" class="ov-margin-right-10"/><button id="ov-wall-btn-reply" class="" on-click="addwall_conver(article, contentreply)" ng-show="!indsit && article.showreply" type="submit"></button></p>
+        </div>
+			</li>
+		</ul>
+		<h1 data-ng-hide="!articles || articles.length">No articles yet. <br> Why don't you <a href="/#!/wall/create">Create One</a>?</h1>
+	<div>
 </section>

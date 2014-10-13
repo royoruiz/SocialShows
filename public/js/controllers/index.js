@@ -2,26 +2,22 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     $scope.global = Global;
 
     $scope.menu = [{
+        "title": "Wall",
+        "link": "wall"
+    }, {
         "title": "Calendar",
         "link": ""
 
     }, {
+        "title": "Shows Pending",
+        "link": "list"
+    }, {
         "title": "Search Your Show",
         "link": "tvshows"
     }, {
-        "title": "Shows Pending",
-        "link": "list"
-/*    }, {
-        "title": "Activity Deck",
-        "link": "tvshows"
-    }, {
-        "title": "Articles",
-        "link": "articles"
-    }, {
-        "title": "Create New Article",
-        "link": "articles/create"
-*/
-    }];
+        "title": "Friends",
+        "link": "friends"
+    }];   
 
     $scope.uiConfig = {
       calendar:{
@@ -81,9 +77,15 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 
       var z2 = end.getMonth() + 1;
       if (z2<10) {k2 = '0' + z2;} else {k2 = z2;}
+
+      var d = start.getDate();
+      if (d<10) {day = '0' + d;} else {day = d;}
       
-      var aux_start = start.getFullYear() +'-'+ k + '-' + start.getDate();
-      var aux_end = end.getFullYear() + '-' + k2 + '-' + end.getDate();
+      var d2 = end.getDate();
+      if (d2<10) {day2 = '0' + d2;} else {day2 = d2;}      
+      
+      var aux_start = start.getFullYear() +'-'+ k + '-' + day;
+      var aux_end = end.getFullYear() + '-' + k2 + '-' + day2;
       //console.log(aux_start);
       //console.log(aux_end);
       var events = TvShowsByDate.query({ini: aux_start, fin: aux_end}, function(list){

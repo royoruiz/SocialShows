@@ -90,6 +90,46 @@ exports.me = function(req, res) {
     res.jsonp(req.user || null);
 };
 
+exports.findByUser = function(req, res){
+
+    var array = req.query.q_friends.split(",");
+
+    if (req.query.q_friends == ""){
+        
+        result = [];
+        res.jsonp(result);
+    }else{
+        
+        if (req.query.q_user == "undefined"){
+            
+            User.find({'_id': { $in: array }}).exec(function (err, result){
+                if (err) {
+                    console.log(err);
+                        res.render('error', {
+                        status: 500
+                    });
+                } else {
+                    res.jsonp(result);
+                } 
+            });        
+
+        }else{
+            User.find({'name': { $regex: req.query.q_user, $options: 'i' }}).exec(function (err, result){
+                if (err) {
+                    console.log(err);
+                        res.render('error', {
+                        status: 500
+                    });
+                } else {
+                    res.jsonp(result);
+                } 
+            });
+        }
+
+    }  
+
+};
+
 /**
  * Find user by id
  */

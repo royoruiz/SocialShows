@@ -6,26 +6,22 @@ angular.module('mean.tvshows').controller('TvShowsController', ['$scope', '$rout
        });
 
     $scope.menu = [{
+        "title": "Wall",
+        "link": "wall"
+    }, {
         "title": "Calendar",
         "link": ""
 
     }, {
+        "title": "Shows Pending",
+        "link": "list"
+    }, {
         "title": "Search Your Show",
         "link": "tvshows"
     }, {
-        "title": "Shows Pending",
-        "link": "list"
-/*    }, {
-        "title": "Activity Deck",
-        "link": "tvshows"
-    }, {
-        "title": "Articles",
-        "link": "articles"
-    }, {
-        "title": "Create New Article",
-        "link": "articles/create"
-*/
-    }];    
+        "title": "Friends",
+        "link": "friends"
+    }];   
 
     //$scope.totalPages = 0;
     $scope.customersCount = 0;

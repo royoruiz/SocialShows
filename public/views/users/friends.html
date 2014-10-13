@@ -1,0 +1,34 @@
+<section data-ng-controller="FriendsController" data-ng-init="find()">
+<div class="row-fluid">
+    <div class="span3">
+      <!--Sidebar content-->
+      <div class="sidebar-nav">
+        <ul class="nav nav-list show-sidebar">
+          <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
+            <a href="#!/{{item.link}}">{{item.title}}</a>
+        </li>
+        <ul>
+      </div>
+    </div>
+    <div class="span9 show-content">
+      <div id="ov-friends-h2"><p>the following</p></div>
+      <ul class="articles unstyled">
+			 <li data-ng-repeat="friend in friends">
+        <span><form class="form-horizontal" data-ng-submit="addfriend(friend)" ng-hide="friend.myfriend"><button type="submit" class="ov-friends-follow"></button>
+                <span><img id="ov-friends-img" src="{{friend.twitter.profile_image_url}}" ng-show="friend.provider != 'local'"></img></span>
+        <span id="ov-friends-txt"><a href="#!/wall/{{friend.username}}/{{friend._id}}">{{friend.name}}</a></span>
+      </form></span>
+        <span><form class="form-horizontal" data-ng-submit="removefriend(friend)" ng-show="friend.myfriend"><button type="submit" class="ov-friends-btn"></button>
+        <span><img id="ov-friends-img" src="{{friend.twitter.profile_image_url}}" ng-show="friend.provider != 'local'"></img></span>
+        <span id="ov-friends-txt"><a href="#!/wall/{{friend.username}}/{{friend._id}}">{{friend.name}}</a></span>
+        </form></span> 
+
+
+			 </li>
+		  </ul>
+      <div class="show-search ov-friends-search"><p>Search <span id="show-your">Friends</span><img src="../img/generic/flechanaranja.png">
+        <input id="show-txt-search" on-enter-blur on-blur-change="search()" ng-model="name"  type="text" style="width:320px;"/> <button id="show-btn-search" class="" on-click="search()" type="submit"></button></p>
+      </div>
+	  </div>
+  </div>
+</section>

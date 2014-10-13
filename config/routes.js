@@ -14,6 +14,7 @@ module.exports = function(app, passport, auth) {
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
     app.get('/signout', users.signout);
+    app.get('/friends', users.findByUser);
 
     //Setting up the users api
     app.post('/users', users.create);
@@ -86,6 +87,8 @@ module.exports = function(app, passport, auth) {
     app.get('/articles', articles.all);
     app.post('/articles', auth.requiresLogin, articles.create);
     app.get('/articles/:articleId', articles.show);
+    app.get('/wall', articles.all);
+    app.get('/wall/:name', articles.showall);
     app.put('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.update);
     app.del('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy);
 
@@ -113,6 +116,7 @@ module.exports = function(app, passport, auth) {
     app.get('/socials/:userId', socials.info);
     app.put('/socials/:userId', auth.requiresLogin, socials.update);
     app.del('/socials/:userId', auth.requiresLogin, socials.destroy);
+    //app.put('/socials/:userId', auth.requiresLogin, socials.friends);
 
     //Finish with setting up the userId param
     app.param('userId', socials.social);

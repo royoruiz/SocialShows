@@ -8,26 +8,22 @@ angular.module('mean.tvshows').controller('Episode', ['$scope', '$routeParams', 
     if (Global.user.twitter){ $scope.a_twitter=true;}
 
     $scope.menu = [{
+        "title": "Wall",
+        "link": "wall"
+    }, {
         "title": "Calendar",
         "link": ""
 
     }, {
+        "title": "Shows Pending",
+        "link": "list"
+    }, {
         "title": "Search Your Show",
         "link": "tvshows"
     }, {
-        "title": "Shows Pending",
-        "link": "list"
-/*    }, {
-        "title": "Activity Deck",
-        "link": "tvshows"
-    }, {
-        "title": "Articles",
-        "link": "articles"
-    }, {
-        "title": "Create New Article",
-        "link": "articles/create"
-*/
-    }];   
+        "title": "Friends",
+        "link": "friends"
+    }];    
 
     $scope.getEpisode = function() {
 
@@ -143,7 +139,8 @@ angular.module('mean.tvshows').controller('Episode', ['$scope', '$routeParams', 
                 social.$update(function(){  
                     var article = new Articles({
                         title: tit,
-                        content: opinion
+                        content: opinion,
+                        show: true
                     });
                     article.$save(function(response) {
                         /*

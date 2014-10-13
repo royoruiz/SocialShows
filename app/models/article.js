@@ -27,7 +27,16 @@ var ArticleSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: 'User'
-    }
+    },
+    creator: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    },
+    conversation: {
+        type: Schema.ObjectId
+    },
+    reply: Boolean,
+    show: Boolean
 });
 
 /**

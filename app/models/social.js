@@ -3,9 +3,7 @@ var mongoose = require('mongoose'),
 
 var Socials = new Schema({
 	friends: [
-				{
-					user_friend: Schema.ObjectId
-				}
+				Schema.ObjectId
 			],
 	watched: [
 				{
@@ -13,6 +11,13 @@ var Socials = new Schema({
 					showid: String, 
 					epnum: [String],
 					completed: Boolean
+				}
+			],
+	skiped: [
+				{
+					_id: Schema.ObjectId,
+					showid: String, 
+					epnum: [String]
 				}
 			]
 });
