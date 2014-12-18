@@ -33,6 +33,7 @@ module.exports = function(passport) {
                 email: email
             }, function(err, user) {
                 if (err) {
+                    console.log(err);
                     return done(err);
                 }
                 if (!user) {
@@ -74,11 +75,15 @@ module.exports = function(passport) {
                         twitter: profile._json
                     });
                     user.save(function(err) {
-                        if (err) console.log(err);
-                        var social = new Social();
-                        social._id = user._id;
-                        social.save(function(err){ if (err) console.log(err); return done(err, social);});
-                        return done(err, user);
+                        if (err) {
+                            console.log(err);
+                        }else{
+                            var social = new Social();
+                            social._id = user._id;
+                            social.save(function(err){ if (err) console.log(err); return done(err, social);});
+                            return done(err, user);                        
+                        }
+
                     });
                 } else {
                     return done(err, user);

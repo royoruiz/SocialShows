@@ -23,7 +23,7 @@ module.exports = function(app, passport, auth) {
         failureRedirect: '/signin',
         failureFlash: 'Invalid email or password.'
     }), users.session);
-
+    
     app.get('/users/me', users.me);
     app.get('/users/:userId', users.show);
 
@@ -120,7 +120,27 @@ module.exports = function(app, passport, auth) {
 
     //Finish with setting up the userId param
     app.param('userId', socials.social);
-     
+
+    /*
+    app.get('/api/users/login', passport.authenticate('local', {
+        failureRedirect: '/signin',
+        failureFlash: 'Invalid email or password.'
+    }), users.api_login);
+    */
+    
+    app.get('/api/users/login', users.api_login);    
+    app.post('/api/users/create', users.api_create);
+    
+    app.get('/api/users/twitter', users.api_twitter);
+    app.post('/api/users/twitter/new', users.api_twitter_new);
+    
+    app.get('/api/tvshows/list', tvshows.api_list);
+    app.get('/api/tvshows/calendar', tvshows.api_calendar);
+    app.get('/api/tvshows/find', tvshows.api_find);
+    
+    app.post('/api/tvshows/follow', tvshows.api_followandcheck);
+    app.post('/api/tvshows/unfollow', tvshows.api_unfollow);
+    app.post('/api/social/watch', socials.api_watch);
 
     //Home route
     var index = require('../app/controllers/index');
