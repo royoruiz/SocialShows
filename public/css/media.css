@@ -14,9 +14,12 @@
         padding-right: 0px;
     }
     
+    /*
     .show-content {
         border-left: none;
     }
+    */
+    
     .show-sign > img, .show-sign > a > img {
         width: 28px;
         padding-bottom: 10px;
