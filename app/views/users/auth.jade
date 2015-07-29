@@ -8,7 +8,7 @@ block content
         img(src="/img/icons/twitter.png")
 
     .span6
-      if (typeof errors !== 'undefined')
+      if (typeof errors !== 'undefined' && errors.length > 0)
         .fade.in.alert.alert-block.alert-error
           a.close(data-dismiss="alert", href="javascript:void(0)") x
           ul
