@@ -23,12 +23,12 @@ exports.tvshow = function(req, res, next, id) {
  * Update a tvshow
  */
 exports.update = function(req, res) {
- 
+
     var tvshow = req.tvshow;
 
     tvshow.users.push(req.user);
     tvshow.followers = tvshow.users.length;
-    
+
     tvshow.save(function(err) {
         res.jsonp(tvshow);
     });
@@ -43,7 +43,7 @@ exports.destroy = function(req, res) {
 
     tvshow.users.pop(req.user);
     tvshow.followers = tvshow.users.length;
-    
+
     tvshow.save(function(err) {
         res.jsonp(tvshow);
     });
@@ -61,17 +61,17 @@ exports.show = function(req, res) {
  */
 exports.findByAirdate = function(req, res) {
 
-    if (req.user){        
+    if (req.user){
 
         TvShows.aggregate(
 
-        { $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}, {'users': req.user._id}]}}, 
-        {$unwind: '$Episodelist'}, 
-        {$project: {_id: 0, show_id: '$_id', show: '$showid',airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}}, 
-        {$unwind: '$episode'}, 
+        { $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}, {'users': req.user._id}]}},
+        {$unwind: '$Episodelist'},
+        {$project: {_id: 0, show_id: '$_id', show: '$showid',airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}},
+        {$unwind: '$episode'},
         {$match: {'episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}},
         {$unwind: '$users'},
-        {$match: {'users': req.user._id}},   
+        {$match: {'users': req.user._id}},
         function(err, result) {
 
             if (err) console.log("ERR : " + err);
@@ -117,11 +117,11 @@ exports.findByAirdate = function(req, res) {
 
     } else {
         TvShows.aggregate(
-        {$match: { 'Episodelist.episode': { '$exists': true } }},    
-        {$unwind: '$Episodelist'}, 
-        {$project: {_id: 0, airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode'}}, 
-        {$unwind: '$episode'}, 
-        {$match: {'episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}},   
+        {$match: { 'Episodelist.episode': { '$exists': true } }},
+        {$unwind: '$Episodelist'},
+        {$project: {_id: 0, airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode'}},
+        {$unwind: '$episode'},
+        {$match: {'episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}},
         function(err, result) {
             if (err) console.log("ERR : " + err);
 
@@ -176,7 +176,7 @@ exports.findByName = function(req, res){
 
     } else {
         dir = 1;
-    }    
+    }
 
     var sort_doc = {};
     sort_doc[req.query.q_sorted] = dir;
@@ -186,7 +186,7 @@ exports.findByName = function(req, res){
             // query base
             if (req.query.q_just == "true"){
                 TvShows.aggregate(
-                    { $match: {'users': req.user._id}},                    
+                    { $match: {'users': req.user._id}},
                     { $unwind: "$users" },
                     { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
                     { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', users: '$users_temp', num: '$count'}},
@@ -200,7 +200,7 @@ exports.findByName = function(req, res){
                         } else {
 
                             res.jsonp(result);
-                        } 
+                        }
                 });
             }else{
 
@@ -214,9 +214,9 @@ exports.findByName = function(req, res){
                             });
                         } else {
                             res.jsonp(result);
-                        } 
-                });                
-            }           
+                        }
+                });
+            }
 
         } else {
             TvShows.find({ 'network.text': { $regex: req.query.q_network, $options: 'i' } }).sort(sort_doc).exec(function(err, result){
@@ -229,8 +229,8 @@ exports.findByName = function(req, res){
                     });
                 } else {
                     res.jsonp(result);
-                } 
-            });            
+                }
+            });
 
         }
     } else {
@@ -244,7 +244,7 @@ exports.findByName = function(req, res){
                     });
                 } else {
                     res.jsonp(result);
-                } 
+                }
             });
 
         } else {
@@ -257,21 +257,21 @@ exports.findByName = function(req, res){
                     });
                 } else {
                     res.jsonp(result);
-                } 
+                }
             });
 
-        }        
-    }    
+        }
+    }
 };
 
-/** 
+/**
  * List of shows with pending episodes for a users
  *
  */
 exports.list = function(req, res){
-        
+
     TvShows.aggregate(
-        { $match: {'users': req.user._id}},                    
+        { $match: {'users': req.user._id}},
         { $unwind: "$users" },
         { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist", status: "$status"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
         { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', status:'$_id.status', users: '$users_temp', num: '$count'}}
@@ -284,33 +284,33 @@ exports.list = function(req, res){
             } else {
                 //console.log(result);
                 res.jsonp(result);
-            } 
+            }
     });
 };
 
 
-/** 
+/**
  * Api service Calendar of Shows
  *
  */
 exports.api_calendar = function(req, res){
-        
+
     var_id = mongoose.Types.ObjectId(req.query.id);
-    
+
     var ini = req.query.date_ini
-    var fin = ini
-    
+    var fin = req.query.date_fin
+
     //console.log(req.body)
-    
+
     TvShows.aggregate(
-        //{ $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}, {'users': req.user._id}]}}, 
-        { $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': ini, '$lte': fin}}, {'users': var_id}]}}, 
-        {$unwind: '$Episodelist'}, 
-        {$project: {_id: 0, show_id: '$_id', show: '$showid',airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}}, 
-        {$unwind: '$episode'}, 
+        //{ $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}, {'users': req.user._id}]}},
+        { $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': ini, '$lte': fin}}, {'users': var_id}]}},
+        {$unwind: '$Episodelist'},
+        {$project: {_id: 0, show_id: '$_id', show: '$showid',airtime: '$airtime', season: '$Episodelist.no', elapsed: '$runtime', episode:'$Episodelist.episode', users: '$users', name: '$name'}},
+        {$unwind: '$episode'},
         {$match: {'episode.airdate': {'$gte': ini, '$lte': fin}}},
         {$unwind: '$users'},
-        {$match: {'users': var_id}},   
+        {$match: {'users': var_id}},
         function(err, result) {
 
             if (err) console.log("ERR : " + err);
@@ -368,7 +368,7 @@ exports.api_calendar = function(req, res){
                                         remove = true;
                                     }
                                 }
-                            }  
+                            }
                         }
                         if (!remove){list_aux.push(devolver[l]);}
                     }
@@ -377,23 +377,23 @@ exports.api_calendar = function(req, res){
                     devolver = list_aux;
                     res.jsonp(devolver);
             });
-            
+
 
         });
 };
 
 
-/** 
+/**
  * Api service List of shows with pending episodes for a users
  *
  */
 exports.api_list = function(req, res){
     //console.log(req);
-    
+
     var_id = mongoose.Types.ObjectId(req.query.id);
-    
+
     TvShows.aggregate(
-        { $match: {'users': var_id}},                    
+        { $match: {'users': var_id}},
         { $unwind: "$users" },
         { $group: { _id: {c_id:"$_id", showid: "$showid", name: "$name", network: "$network", Episodelist: "$Episodelist", status: "$status"}, users_temp: {$addToSet: '$users'}, count: { $sum: 1 }}},
         { $project: {_id : '$_id.c_id', showid: '$_id.showid', name: '$_id.name',network: '$_id.network', Episodelist: '$_id.Episodelist', status:'$_id.status', users: '$users_temp', num: '$count'}}
@@ -410,8 +410,8 @@ exports.api_list = function(req, res){
                     //console.log(salida);
                     res.jsonp(salida);
                 });
-                
-            } 
+
+            }
     });
 };
 
@@ -440,13 +440,13 @@ function reord_shows(id, shows, social){
                     var aux_skip =false;
 
                     for (var k = shows[i].Episodelist[j].episode.length - 1; k >= 0; k--) {
-                    
+
                         aux = iswatched(shows[i].showid, shows[i].Episodelist[j].episode[k].epnum, social.watched);
                         aux_skip = isskiped(shows[i].showid, shows[i].Episodelist[j].episode[k].epnum, social.skiped);
                         if (!aux_skip){
 
                             if (!aux && parseInt(shows[i].Episodelist[j].episode[k].epnum) < parseInt(en_prev)){
-                            
+
                                 s_prev = shows[i].Episodelist[j].no;
                                 e_prev = shows[i].Episodelist[j].episode[k].seasonnum;
                                 t_prev = shows[i].Episodelist[j].episode[k].title;
@@ -476,18 +476,18 @@ function reord_shows(id, shows, social){
                         case "TBD/On The Bubble":
                             show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': '', 'epnum': en_prev , 'title': 'No more episodes left.', 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': false, 'class': 'show-list-no-more'};
                             shows_returning.push(show);
-                            break;         
+                            break;
                         default:
                             d2 = new Date(date_prev.substring(0, 4), parseInt(date_prev.substring(5, 7))-1, date_prev.substring(8, 10));
                             if (d2 > d){
-                                varclass = 'show-list-future';                                
+                                varclass = 'show-list-future';
 
                             }else{
                                 varclass = 'show-list-past';
                             }
                             show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': s_prev+'x'+e_prev, 'epnum': en_prev , 'title': t_prev, 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': true , 'class': varclass};
                             shows_temp.push(show);
-                            break;                        
+                            break;
                     }
 
 
@@ -499,7 +499,7 @@ function reord_shows(id, shows, social){
                     }else{
                         varclass = 'show-list-past';
                     }
-                    show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': s_prev+'x'+e_prev, 'epnum': en_prev , 'title': t_prev, 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': true, 'class': varclass}    
+                    show = {'id': shows[i]._id, 'showid': shows[i].showid, 'name': shows[i].name, 'epi': s_prev+'x'+e_prev, 'epnum': en_prev , 'title': t_prev, 'season': s_prev, 'episode': e_prev, 'airdate': date_prev, 'showbtn': false, 'sf': false, 'lnk': true, 'class': varclass}
                     shows_temp.push(show);
                 }
 
@@ -515,7 +515,7 @@ function reord_shows(id, shows, social){
 
                     }
                 }
-                
+
             };
 
             for (var i = 0; i < shows_ended.length - 1; i++) {
@@ -527,7 +527,7 @@ function reord_shows(id, shows, social){
 
                     }
                 }
-                
+
             };
 
             for (var i = 0; i < shows_returning.length - 1; i++) {
@@ -539,7 +539,7 @@ function reord_shows(id, shows, social){
 
                     }
                 }
-                
+
             };
 
             for (var i = 0; i < shows_returning.length; i++) {
@@ -551,7 +551,7 @@ function reord_shows(id, shows, social){
             };
         //console.log(shows_temp);
         return shows_temp;
-    
+
 };
 
 function iswatched(showid_in, epnum_in, watched) {
@@ -566,18 +566,18 @@ function iswatched(showid_in, epnum_in, watched) {
                     }
 
                 }
-                
+
             }
 
         }
-        return responsw;       
+        return responsw;
 
     };
 
 function isskiped(showid_in, epnum_in, array) {
         var responsw = false;
         var vector_skip = array;
-        
+
         //console.log(vector_skip);
         for (var i = vector_skip.length - 1; i >= 0; i--) {
 
@@ -589,11 +589,11 @@ function isskiped(showid_in, epnum_in, array) {
                     }
 
                 }
-                
+
             }
 
         }
-        return responsw;       
+        return responsw;
 
     };
 
@@ -601,13 +601,13 @@ function isskiped(showid_in, epnum_in, array) {
  * Api find TvShows query by name
  */
 
-exports.api_find = function(req, res){ 
-    
+exports.api_find = function(req, res){
+
     var q_dir = -1
     var q_name = req.query.q_name
 
     //console.log(req.body);
-    
+
     var sort_doc = {};
     sort_doc['populate'] = q_dir;
 
@@ -622,8 +622,8 @@ exports.api_find = function(req, res){
                     });
                 } else {
                     res.jsonp(result);
-                } 
-        });           
+                }
+        });
 
     } else {
         //name ok and network undefined
@@ -636,9 +636,9 @@ exports.api_find = function(req, res){
             } else {
                 //console.log(result);
                 res.jsonp(result);
-            } 
-        });              
-    }    
+            }
+        });
+    }
 };
 
 /**
@@ -648,11 +648,11 @@ exports.api_followandcheck = function(req, res){
     //console.log(req);
     var var_id = mongoose.Types.ObjectId(req.body.user);
     var comp = false;
-    
+
     if (req.body.complete == 'true') { comp = true;}
-    
+
     //console.log(req.body);
-    
+
     TvShows.findOne({'showid': req.body.show}).exec(function(err, show){
         var crtl = false;
         var temp = [];
@@ -664,9 +664,9 @@ exports.api_followandcheck = function(req, res){
                     if (parseInt(req.body.clave)>=parseInt(show.Episodelist[j2].episode[k2].epnum)) {
                         temp[z] = show.Episodelist[j2].episode[k2].epnum;
                         z++;
-                    }    
+                    }
                 }
-            }  
+            }
 
         }else{
             if (comp){
@@ -684,7 +684,7 @@ exports.api_followandcheck = function(req, res){
             //console.log(show);
             //console.log(social);
             //console.log(temp);
-            
+
             for (var i = social.watched.length - 1; i >= 0; i--) {
                 if (social.watched[i].showid == show.showid) {
                     crtl = true;
@@ -692,7 +692,7 @@ exports.api_followandcheck = function(req, res){
 
                 }
             }
-        
+
             if (crtl){
                 social.watched[ind].epnum = temp;
                 if (comp){
@@ -700,38 +700,38 @@ exports.api_followandcheck = function(req, res){
                 }else{
                     social.watched[ind].completed = false;
                 }
-            
+
             } else {
                 if (comp){
                     social.watched.push({showid: show.showid, epnum: temp, completed: true});
                 }else{
                     social.watched.push({showid: show.showid, epnum: temp, completed: false});
                 }
-            
-            }
-            
-            
-            
-            show.users.push(var_id);
-            show.followers = show.users.length;
-            
-            show.save(function(err) {
-               if (err){ salida['success'] = 0; salida['error_message'] = "Error save show";} 
-            });
-            
-            if (salida['success'] == 1){
-                social.save(function(err){
-                    if (err){ salida['success'] = 0; salida['error_message'] = "Error save social";} 
-                });            
+
             }
 
-            
-            
+
+
+            show.users.push(var_id);
+            show.followers = show.users.length;
+
+            show.save(function(err) {
+               if (err){ salida['success'] = 0; salida['error_message'] = "Error save show";}
+            });
+
+            if (salida['success'] == 1){
+                social.save(function(err){
+                    if (err){ salida['success'] = 0; salida['error_message'] = "Error save social";}
+                });
+            }
+
+
+
             res.jsonp(salida)
-            
+
         });
     });
-    
+
 };
 
 /**
@@ -739,14 +739,14 @@ exports.api_followandcheck = function(req, res){
  */
 exports.api_unfollow = function(req, res){
     console.log(req.body);
-    
+
     var var_id = mongoose.Types.ObjectId(req.body.user);
     var salida = {};
-    
+
     TvShows.findOne({'showid': req.body.show}).exec(function(err, show){
         show.users.pop(var_id);
         show.followers = show.users.length;
-    
+
         show.save(function(err) {
             salida['success'] = 1;
             res.jsonp(salida);
@@ -760,7 +760,7 @@ exports.api_unfollow = function(req, res){
  */
 exports.all = function(req, res) {
     //TvShows.find().sort('-created').populate('user', 'name username').exec(function(err, tvshows) {
-    
+
     TvShows.find({}, {'showid': 1, 'name':1, 'network': 1, 'users':1}).sort('showid').limit(50).exec(function(err, tvshows) {
         if (err) {
             console.log(err);
