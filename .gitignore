@@ -1,0 +1,4 @@
+gruntfile.js
+node_modules/**
+app/load/followers.py
+app/load/new_salida
