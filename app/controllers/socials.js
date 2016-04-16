@@ -58,13 +58,13 @@ exports.api_watch = function(req, res){
         title_id = req.body.title
         season_id = req.body.season
         episode_id = req.body.episode
-        console.log(epinum_id);
+        //console.log(epinum_id);
 
         var crtl = false;
         for (var i = social.watched.length - 1; i >= 0; i--) {
 
             if (social.watched[i].showid == show_id){
-                console.log("aqui");
+                //console.log("aqui");
                 //console.log(epinum_id);
                 social.watched[i].epnum.push(epinum_id);
                 crtl = true;
@@ -72,7 +72,7 @@ exports.api_watch = function(req, res){
         }
 
         if (!crtl) {
-          console.log("aqui");
+          //console.log("aqui");
             social.watched.push({showid: show_id, epnum: [epinum_id], completed: false});
         }
 
