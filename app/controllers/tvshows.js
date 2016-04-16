@@ -300,7 +300,7 @@ exports.api_calendar = function(req, res){
     var ini = req.query.date_ini
     var fin = req.query.date_fin
 
-    //console.log(req.body)
+    console.log(req.body)
 
     TvShows.aggregate(
         //{ $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}, {'users': req.user._id}]}},
@@ -322,7 +322,7 @@ exports.api_calendar = function(req, res){
             var date_start_aux = new Date();
             var date_end_aux = new Date();
             for (var i = result.length - 1; i >= 0; i--) {
-                //console.log(result[i]);
+                console.log(result[i]);
 
                 aux = result[i].name + ' - ' + result[i].season + 'x' + result[i].episode.seasonnum;
                 //aux_lnk = "<a data-ng-href=\"#!/tvshows/" + result[i].show_id + "/" + result[i].season + "/"+ result[i].episode.title +"\">" + aux + "</a>";
@@ -350,7 +350,7 @@ exports.api_calendar = function(req, res){
             }
 
             Social.findOne({'_id': var_id}).exec(function(err, social){
-            //console.log(devolver);
+            console.log(devolver);
                     var list_aux=[];
                     var remove = false;
                     for (var l = devolver.length - 1; l >= 0; l--) {
@@ -372,7 +372,7 @@ exports.api_calendar = function(req, res){
                         }
                         if (!remove){list_aux.push(devolver[l]);}
                     }
-                    //console.log(list_aux);
+                    console.log(list_aux);
                     devolver = [];
                     devolver = list_aux;
                     res.jsonp(devolver);
@@ -738,7 +738,7 @@ exports.api_followandcheck = function(req, res){
  * Unfollow tv shows
  */
 exports.api_unfollow = function(req, res){
-    console.log(req.body);
+    //console.log(req.body);
 
     var var_id = mongoose.Types.ObjectId(req.body.user);
     var salida = {};
