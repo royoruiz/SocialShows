@@ -349,6 +349,8 @@ exports.api_calendar = function(req, res){
 
                 devolver[j] = doc;
 
+                console.log(doc);
+
                 j++;
             }
 
