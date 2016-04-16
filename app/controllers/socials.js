@@ -30,7 +30,7 @@ exports.info = function(req, res) {
  * Update a social
  */
 exports.update = function(req, res) {
-    
+
     var social = req.social;
     social.skiped = req.body.skiped;
     social.watched = req.body.watched;
@@ -47,24 +47,24 @@ exports.update = function(req, res) {
 exports.api_watch = function(req, res){
     var salida = {}
     //console.log(req.body)
-    
+
     user_id = mongoose.Types.ObjectId(req.body.user);
-    
+
     Social.findOne({'_id': user_id}).exec(function(err, social){
-        
+
         show_id = req.body.show
         epinum_id = req.body.epnum
         name_id = req.body.name
         title_id = req.body.title
         season_id = req.body.season
         episode_id = req.body.episode
-        //console.log(show_id);
-        
+        console.log(epinum_id);
+
         var crtl = false;
         for (var i = social.watched.length - 1; i >= 0; i--) {
 
             if (social.watched[i].showid == show_id){
-                //console.log("aqui");
+                console.log("aqui");
                 //console.log(epinum_id);
                 social.watched[i].epnum.push(epinum_id);
                 crtl = true;
@@ -72,14 +72,15 @@ exports.api_watch = function(req, res){
         }
 
         if (!crtl) {
+          console.log("aqui");
             social.watched.push({showid: show_id, epnum: [epinum_id], completed: false});
         }
-        
+
         //console.log(social);
         //social.watched.push({showid: showid_in, epnum: epnum_in});
         //var tit = Global.user.username + ' check ' + season + 'x' + episode_in.seasonnum + ' - \"' + episode_in.title + '\" -';
         var tit = 'I\'ve  watched ' + name_id + ' - ' + season_id + 'x' + episode_id + ' - \"' + title_id + '\"';
-        
+
         social.save(function(){
             var article = new Articles({
                     title: tit,
@@ -95,7 +96,7 @@ exports.api_watch = function(req, res){
                     salida['success'] = 0
                     res.jsonp(salida)
                 }else{
-                    
+
                     salida['success'] = 1
                     res.jsonp(salida)
                 }
@@ -103,11 +104,11 @@ exports.api_watch = function(req, res){
         });
         //console.log(tit);
     });
-    
-    
-    
-    
-    
+
+
+
+
+
 
 }
 
