@@ -297,13 +297,13 @@ exports.api_calendar = function(req, res){
 
     var_id = mongoose.Types.ObjectId(req.query.id);
 
-    var ini = req.query.date_ini
-    var fin = req.query.date_fin
+    var ini = req.query.date_ini;
+    var fin = ini;
 
     //console.log(req.body)
-    console.log(var_id);
-    console.log(ini);
-    console.log(fin);
+    //console.log(var_id);
+    //console.log(ini);
+    //console.log(fin);
 
     TvShows.aggregate(
         //{ $match: {$and: [{ 'Episodelist.episode': { '$exists': true } }, {'Episodelist.episode.airdate': {'$gte': req.query.ini, '$lt': req.query.fin}}, {'users': req.user._id}]}},
